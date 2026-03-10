@@ -5,6 +5,11 @@ export type Project = {
   tech: string[];
   impact: string;
   featured?: boolean;
+  color?: string;
+  stars?: number;
+  forks?: number;
+  category?: 'Web Development' | 'AI/ML' | 'Cloud Native CI/CD' | 'Backend' | 'Other';
+  id: string;
 };
 
 export type TechCategory = {
@@ -31,4 +36,5 @@ export type Achievement = {
   type: 'image' | 'video' | 'post';
   thumbnail?: string;
   link?: string;
+  date: string;
 };

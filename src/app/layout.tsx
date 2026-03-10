@@ -3,6 +3,7 @@ import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
+import ChatWidget from '@/components/layout/ChatWidget';
 
 export const metadata: Metadata = {
   title: 'Faris | AI Generalist & Tech Lead',
@@ -27,6 +28,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <ChatWidget />
         </ThemeProvider>
       </body>
     </html>
