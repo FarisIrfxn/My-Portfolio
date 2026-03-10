@@ -1,0 +1,34 @@
+import type { Metadata } from 'next';
+import './globals.css';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import { ThemeProvider } from '@/components/layout/ThemeProvider';
+
+export const metadata: Metadata = {
+  title: 'Faris | AI Generalist & Tech Lead',
+  description:
+    'Portfolio of Faris - AI Generalist focusing on automation, LLM integration, and full-stack AI solutions.',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+          <Footer />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
