@@ -247,18 +247,43 @@ section {
     margin-bottom: 40px;
 }
 
-.hero-image-placeholder {
+.hero-visual-wrapper {
+    position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;
-    background: var(--tag-bg);
-    border: 2px dashed var(--border-color);
-    border-radius: 20px;
+    aspect-ratio: 1 / 1.15; /* Taller so head has more room to pop out */
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 0.9rem;
+}
+
+.hero-visual-bg {
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    width: 90%;
+    height: 75%; /* Lower background ensures more of the character sits above it */
+    background: linear-gradient(135deg, var(--accent-color), #2196F3);
+    border-radius: 40px;
+    z-index: 1;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.hero-character-container {
+    position: absolute;
+    bottom: 0px;
+    left: 5%;
+    width: 90%;
+    height: 100%;
+    z-index: 2;
+    /* This magical clip-path cuts off ONLY the bottom corners to match the background, 
+       but allows infinite overflow upwards for the head to pop out! */
+    clip-path: inset(-100% 0 0 0 round 0 0 40px 40px);
+}
+
+.hero-character-container img {
+    /* Scale character up by 25% from the bottom to eat up any transparent padding */
+    transform: scale(1.25);
+    transform-origin: bottom center;
 }
 
 @media (max-width: 768px) {
@@ -273,7 +298,7 @@ section {
         order: 2;
     }
 
-    .hero-image-placeholder {
+    .hero-visual-wrapper {
         order: 1;
         max-width: 300px;
         margin: 0 auto;
@@ -1064,6 +1089,21 @@ section {
     font-size: 0.8rem !important;
 }
 
+.achievement-milestone-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #FF9800;
+    background: rgba(255, 152, 0, 0.1);
+    border: 1px solid rgba(255, 152, 0, 0.25);
+    padding: 8px 16px;
+    border-radius: 100px;
+    width: 100%;
+    justify-content: center;
+}
+
 .achievement-type {
     font-size: 0.7rem;
     font-weight: 800;
@@ -1228,14 +1268,131 @@ section {
 
 .mockup-frame.mobile {
     width: 50%;
-    height: 110%;
+    height: auto;
+    aspect-ratio: 9 / 16;
     border-radius: 24px;
     align-self: flex-end;
     margin-right: 15%;
 }
 
+.project-mockup-placeholder.combo-mode {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mockup-frame.combo-desktop {
+    width: 85%;
+    height: 95%;
+    margin-right: 15%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.mockup-frame.combo-mobile {
+    position: absolute;
+    bottom: -15%;
+    right: 0%;
+    width: 38%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    border-radius: 36px;
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.6);
+    z-index: 2;
+    margin-right: 0;
+}
+
+.iphone-mockup {
+    padding: 12px 12px 16px;
+    background: #111;
+    border: 2px solid #333;
+    position: relative;
+}
+
+.iphone-mockup .notch {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35%;
+    height: 14px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 10;
+    box-shadow: inset 0 -1px 2px rgba(255,255,255,0.1);
+}
+
+.iphone-mockup .mockup-dots {
+    display: none; /* Hide dots for iPhone */
+}
+
+.iphone-mockup .mockup-screen {
+    border-radius: 24px;
+    background: #000;
+}
+
+.mockup-frame.combo-mobile .mockup-dots {
+    justify-content: center;
+}
+
+.mockup-frame.combo-mobile .mockup-screen {
+    border-radius: 12px;
+}
+
 .mockup-frame.mobile .mockup-dots {
     justify-content: center;
+}
+
+.project-mockup-placeholder.triple-mobile-mode {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.mockup-frame.triple-mobile-center {
+    position: relative;
+    width: 35%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    z-index: 3;
+    border-radius: 36px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    margin: 0 0 -10% 0;
+    align-self: flex-end;
+}
+
+.mockup-frame.triple-mobile-left,
+.mockup-frame.triple-mobile-right {
+    position: absolute;
+    width: 30%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    z-index: 2;
+    border-radius: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    opacity: 0.8;
+    bottom: -5%;
+    margin: 0;
+    transition: all 0.3s ease;
+}
+
+.mockup-frame.triple-mobile-left {
+    left: 10%;
+    transform: rotate(-10deg);
+}
+
+.mockup-frame.triple-mobile-right {
+    right: 10%;
+    transform: rotate(10deg);
+}
+
+.project-feature-visual:hover .mockup-frame.triple-mobile-left {
+    transform: rotate(-15deg) translateX(-10px);
+}
+
+.project-feature-visual:hover .mockup-frame.triple-mobile-right {
+    transform: rotate(15deg) translateX(10px);
 }
 
 .mockup-frame.mobile .mockup-screen {
@@ -1869,16 +2026,7 @@ section {
     margin-bottom: 12px;
 }
 
-.achievement-type-label {
-    font-family: monospace;
-    font-size: 0.75rem;
-    font-weight: 800;
-    color: var(--accent-color);
-}
 
-.social-icon {
-    color: var(--text-secondary);
-}
 
 .achievement-title {
     font-size: 1.25rem;
@@ -1920,6 +2068,110 @@ section {
     background: var(--accent-color);
     color: var(--btn-text);
     border-color: var(--accent-color);
+}
+
+.view-work-btn--muted {
+    opacity: 0.55;
+    cursor: default;
+    pointer-events: none;
+}
+
+.view-work-btn--muted:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Achievements type label pill */
+.achievement-type-label {
+    font-family: monospace;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 100px;
+}
+
+/* Source badge */
+.achievement-source-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: var(--tag-bg);
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 100px;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Achievements stats bar */
+.achievements-stats-bar {
+    display: flex;
+    gap: 0;
+    margin: 40px 0 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    width: fit-content;
+}
+
+.ach-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 36px;
+    border-right: 1px solid var(--border-color);
+    gap: 4px;
+}
+
+.ach-stat:last-child {
+    border-right: none;
+}
+
+.ach-stat-num {
+    font-size: 2rem;
+    font-weight: 950;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.ach-stat-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+/* Achievements page layout */
+.achievements-page {
+    padding-bottom: 100px;
+}
+
+.achievements-hero {
+    padding-top: 120px;
+}
+
+@media (max-width: 768px) {
+    .achievements-stats-bar {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .ach-stat {
+        flex: 1 1 calc(50% - 1px);
+        padding: 16px 20px;
+    }
+    .achievement-source-badge {
+        max-width: 140px;
+    }
 }
 
 /* Contact Page Styles */

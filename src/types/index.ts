@@ -8,13 +8,19 @@ export type Project = {
   color?: string;
   stars?: number;
   forks?: number;
-  category?: 'Web Development' | 'AI/ML' | 'Cloud Native CI/CD' | 'Backend' | 'Other';
+  category?: 'Web Development' | 'AI/ML' | 'Cloud Native CI/CD' | 'Backend' | 'Video Production' | 'Audio/Video' | 'Automation' | 'Mobile Development' | 'Other';
   id: string;
+  mockups?: {
+    desktop?: string;
+    mobile?: string;
+    mobileLeft?: string;
+    mobileRight?: string;
+  };
 };
 
 export type TechCategory = {
   name: string;
-  items: string[];
+  items: { name: string; icon?: string }[];
 };
 
 export type Message = {
@@ -33,8 +39,9 @@ export type TimelineItem = {
 export type Achievement = {
   title: string;
   description: string;
-  type: 'image' | 'video' | 'post';
+  type: 'image' | 'video' | 'post' | 'memory';
   thumbnail?: string;
   link?: string;
   date: string;
+  source?: string;
 };

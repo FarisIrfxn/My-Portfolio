@@ -44,26 +44,51 @@ export default function SkillsGlobe() {
     const skillGroup = new THREE.Group();
     scene.add(skillGroup);
 
-    const createTextTexture = (text: string) => {
+    const createSkillTexture = (skill: { name: string; icon?: string }) => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       if (!ctx) return null;
       
-      canvas.width = 256;
-      canvas.height = 64;
+      canvas.width = 600;
+      canvas.height = 80;
       
-      ctx.fillStyle = 'transparent';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const texture = new THREE.CanvasTexture(canvas);
       
-      // Check current theme - since we are in useEffect we can check document class
-      const isDark = document.documentElement.classList.contains('dark');
-      ctx.fillStyle = isDark ? '#ffffff' : '#111111';
-      ctx.font = 'bold 36px Inter, system-ui, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(text, 128, 32);
+      const draw = (img: HTMLImageElement | null) => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const isDark = document.documentElement.classList.contains('dark');
+        ctx.fillStyle = isDark ? '#ffffff' : '#111111';
+        ctx.font = 'bold 36px Inter, system-ui, sans-serif';
+        ctx.textBaseline = 'middle';
+        
+        if (img) {
+          const textWidth = ctx.measureText(skill.name).width;
+          const gap = 16;
+          const iconSize = 40;
+          const totalWidth = iconSize + gap + textWidth;
+          const startX = (canvas.width - totalWidth) / 2;
+          
+          ctx.drawImage(img, startX, (canvas.height - iconSize) / 2, iconSize, iconSize);
+          ctx.textAlign = 'left';
+          ctx.fillText(skill.name, startX + iconSize + gap, canvas.height / 2);
+        } else {
+          ctx.textAlign = 'center';
+          ctx.fillText(skill.name, canvas.width / 2, canvas.height / 2);
+        }
+        texture.needsUpdate = true;
+      };
+
+      if (skill.icon) {
+        const img = new window.Image();
+        img.onload = () => draw(img);
+        img.onerror = () => draw(null);
+        img.src = skill.icon;
+      } else {
+        draw(null);
+      }
       
-      return new THREE.CanvasTexture(canvas);
+      return texture;
     };
 
     allSkills.forEach((skill, i) => {
@@ -72,12 +97,12 @@ export default function SkillsGlobe() {
       
       const pos = new THREE.Vector3().setFromSphericalCoords(radius, phi, theta);
       
-      const texture = createTextTexture(skill);
+      const texture = createSkillTexture(skill);
       if (texture) {
         const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
         const sprite = new THREE.Sprite(spriteMaterial);
         sprite.position.copy(pos);
-        sprite.scale.set(12, 3, 1);
+        sprite.scale.set(30, 4, 1);
         skillGroup.add(sprite);
       }
     });

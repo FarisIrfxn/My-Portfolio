@@ -1,5 +1,6 @@
 import SkillsGlobe from '@/components/sections/SkillsGlobe';
 import { TECH_STACK } from '@/constants/tech-stack';
+import Image from 'next/image';
 
 export default function SkillsPage() {
   return (
@@ -22,7 +23,18 @@ export default function SkillsPage() {
                 <h3>{category.name}</h3>
                 <div className="skill-item-tags">
                   {category.items.map((item, i) => (
-                    <span key={i} className="skill-badge">{item}</span>
+                    <span 
+                        key={i} 
+                        className="skill-badge" 
+                        style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+                    >
+                      {item.icon && (
+                        <div style={{ position: 'relative', width: '16px', height: '16px' }}>
+                          <Image src={item.icon} alt={item.name} fill style={{ objectFit: 'contain' }} />
+                        </div>
+                      )}
+                      {item.name}
+                    </span>
                   ))}
                 </div>
               </div>

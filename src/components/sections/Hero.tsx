@@ -1,4 +1,5 @@
 import Button from '@/components/ui/Button';
+import Image from 'next/image';
 
 export default function Hero() {
   return (
@@ -15,8 +16,17 @@ export default function Hero() {
             <Button href="/resume.pdf" target="_blank">Download Resume</Button>
           </div>
         </div>
-        <div className="hero-image-placeholder">
-          <span>Image Placeholder</span>
+        <div className="hero-visual-wrapper">
+          <div className="hero-visual-bg"></div>
+          <div className="hero-character-container">
+            <Image 
+              src="/images/character.png" 
+              alt="Character" 
+              fill 
+              priority
+              style={{ objectFit: 'contain', objectPosition: 'bottom' }} 
+            />
+          </div>
         </div>
       </div>
     </section>

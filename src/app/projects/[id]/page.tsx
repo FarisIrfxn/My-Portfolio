@@ -27,7 +27,7 @@ export default function ProjectDetail() {
 
   return (
     <main className="project-detail-page">
-      <div className="section-container" style={{ padding: '120px 20px 60px' }}>
+      <div className="section-container" style={{ padding: '100px 20px 40px', maxWidth: '1100px', margin: '0 auto' }}>
         {/* Back Button */}
         <button 
             onClick={() => router.back()}
@@ -55,14 +55,15 @@ export default function ProjectDetail() {
                 className="detail-cover" 
                 style={{ 
                     width: '100%', 
-                    aspectRatio: '16/9', 
-                    borderRadius: '32px', 
+                    aspectRatio: '21/9', 
+                    maxHeight: '350px',
+                    borderRadius: '24px', 
                     backgroundColor: project.color || 'var(--tag-bg)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '5rem',
-                    marginBottom: '40px',
+                    fontSize: '4rem',
+                    marginBottom: '30px',
                     border: '1px solid var(--border-color)',
                     position: 'relative',
                     overflow: 'hidden'
@@ -72,7 +73,7 @@ export default function ProjectDetail() {
                <span style={{ zIndex: 1, position: 'relative' }}>{project.category === 'AI/ML' ? '🧠' : project.category === 'Web Development' ? '🌐' : '⚙️'}</span>
             </div>
 
-            <h1 className="projects-page-title" style={{ textAlign: 'left', marginBottom: '24px' }}>{project.title}</h1>
+            <h1 style={{ fontSize: '2.5rem', fontWeight: '950', letterSpacing: '-1px', textAlign: 'left', marginBottom: '16px' }}>{project.title}</h1>
             
             <div className="detail-tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '32px' }}>
                <span className="tech-chip" style={{ background: 'var(--accent-color)', color: 'var(--btn-text)', border: 'none' }}>{project.tag}</span>
@@ -80,11 +81,11 @@ export default function ProjectDetail() {
             </div>
 
             <div className="detail-section">
-                <h2 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '20px' }}>Overview</h2>
-                <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', lineHeight: '1.8' }}>
+                <h2 style={{ fontSize: '1.25rem', fontWeight: '900', marginBottom: '16px' }}>Overview</h2>
+                <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: '1.7' }}>
                     {project.description}
                 </p>
-                <div style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', lineHeight: '1.8', marginTop: '20px' }}>
+                <div style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: '1.7', marginTop: '16px' }}>
                     <p>This project was built to address complex challenges in {project.category?.toLowerCase()}. 
                     Focused on high-performance architecture and user-centric design, it implements cutting-edge 
                     technologies like {project.tech.slice(0, 2).join(' and ')}.</p>
@@ -149,12 +150,12 @@ export default function ProjectDetail() {
         </div>
 
         {/* Impact Section */}
-        <div className="detail-impact-section">
-            <div className="impact-header">
-                <CheckCircle2 size={32} />
-                <h2>Key Achievements</h2>
+        <div className="detail-impact-section" style={{ marginTop: '60px', padding: '40px', borderRadius: '24px' }}>
+            <div className="impact-header" style={{ marginBottom: '16px' }}>
+                <CheckCircle2 size={24} />
+                <h2 style={{ fontSize: '1.5rem' }}>Key Achievements</h2>
             </div>
-            <p>
+            <p style={{ fontSize: '1.1rem' }}>
                 {project.impact}. This project pushed the boundaries of what's possible with {project.tech[0]} 
                 integration and set a new standard for our internal development benchmarks.
             </p>

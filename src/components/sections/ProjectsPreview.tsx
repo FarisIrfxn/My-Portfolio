@@ -1,6 +1,7 @@
 import { PROJECTS } from "@/constants/projects";
 import ProjectCard from "@/components/ui/ProjectCard";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 
 export default function ProjectsPreview() {
   const featured = PROJECTS.filter(p => p.featured).slice(0, 4);
@@ -24,16 +25,75 @@ export default function ProjectsPreview() {
                 style={{ backgroundColor: project.color || 'var(--card-bg)' }}
               >
                 <p className="project-feature-desc">{project.description}</p>
-                <div className="project-mockup-placeholder">
-                  {/* Mockup visual */}
-                  <div className={`mockup-frame ${project.tag.includes('MOBILE') ? 'mobile' : 'desktop'}`}>
-                    <div className="mockup-dots">
-                      <span></span><span></span><span></span>
+                <div className={`project-mockup-placeholder ${['ChatBot', 'DuriooGPT'].includes(project.id) ? 'combo-mode' : project.id === 'DuriImageGen' ? 'triple-mobile-mode' : ''}`}>
+                  {['ChatBot', 'DuriooGPT'].includes(project.id) ? (
+                    <>
+                      <div className="mockup-frame desktop combo-desktop">
+                        <div className="mockup-dots">
+                          <span></span><span></span><span></span>
+                        </div>
+                        <div className="mockup-screen" style={{ position: 'relative', overflow: 'hidden' }}>
+                            {project.mockups?.desktop && (
+                                <Image src={project.mockups.desktop} alt={`${project.title} Desktop`} fill style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+                            )}
+                        </div>
+                      </div>
+                      <div className="mockup-frame mobile combo-mobile iphone-mockup">
+                        <div className="notch"></div>
+                        <div className="mockup-screen" style={{ position: 'relative', overflow: 'hidden' }}>
+                            {project.mockups?.mobile && (
+                                <Image src={project.mockups.mobile} alt={`${project.title} Mobile`} fill style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+                            )}
+                        </div>
+                      </div>
+                    </>
+                  ) : project.id === 'DuriImageGen' ? (
+                    <>
+                      <div className="mockup-frame mobile triple-mobile-left iphone-mockup">
+                        <div className="notch"></div>
+                        <div className="mockup-screen" style={{ position: 'relative', overflow: 'hidden' }}>
+                            {project.mockups?.mobileLeft && (
+                                <Image src={project.mockups.mobileLeft} alt={`${project.title} Left`} fill style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+                            )}
+                        </div>
+                      </div>
+                      <div className="mockup-frame mobile triple-mobile-right iphone-mockup">
+                        <div className="notch"></div>
+                        <div className="mockup-screen" style={{ position: 'relative', overflow: 'hidden' }}>
+                            {project.mockups?.mobileRight && (
+                                <Image src={project.mockups.mobileRight} alt={`${project.title} Right`} fill style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+                            )}
+                        </div>
+                      </div>
+                      <div className="mockup-frame mobile triple-mobile-center iphone-mockup">
+                        <div className="notch"></div>
+                        <div className="mockup-screen" style={{ position: 'relative', overflow: 'hidden' }}>
+                            {project.mockups?.mobile && (
+                                <Image src={project.mockups.mobile} alt={`${project.title} Center`} fill style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+                            )}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className={`mockup-frame ${project.tag.includes('MOBILE') ? 'mobile iphone-mockup' : 'desktop'}`}>
+                      {project.tag.includes('MOBILE') ? <div className="notch"></div> : (
+                        <div className="mockup-dots">
+                          <span></span><span></span><span></span>
+                        </div>
+                      )}
+                      <div className="mockup-screen" style={{ position: 'relative', overflow: 'hidden' }}>
+                            {project.tag.includes('MOBILE') ? (
+                                project.mockups?.mobile && (
+                                    <Image src={project.mockups.mobile} alt={`${project.title} Preview`} fill style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+                                )
+                            ) : (
+                                project.mockups?.desktop && (
+                                    <Image src={project.mockups.desktop} alt={`${project.title} Preview`} fill style={{ objectFit: 'cover', objectPosition: 'top center' }} />
+                                )
+                            )}
+                      </div>
                     </div>
-                    <div className="mockup-screen">
-                        {/* Placeholder for project image/visual */}
-                    </div>
-                  </div>
+                  )}
                 </div>
               </div>
 

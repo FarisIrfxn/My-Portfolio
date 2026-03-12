@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import Button from '../ui/Button';
 
-const SkillsGlobe = dynamic(() => import('./SkillsGlobe'), { 
+const SkillsGlobe = dynamic(() => import('./SkillsGlobe'), {
   ssr: false,
   loading: () => <div style={{ height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading World of Skills...</div>
 });
@@ -15,14 +15,14 @@ export default function Skills() {
         <span className="skills-subtitle">TECH STACK</span>
         <h2 className="section-title">My Skills</h2>
       </div>
-      
+
       <div className="skills-globe-wrapper">
-         <SkillsGlobe />
+        <SkillsGlobe />
       </div>
 
       <div className="section-footer" style={{ marginTop: '20px', textAlign: 'center' }}>
         <Button href="/skills" variant="outline">
-          View Technical Arsenal
+          View All Skills
         </Button>
       </div>
     </section>
