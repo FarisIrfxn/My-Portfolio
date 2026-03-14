@@ -20,12 +20,13 @@ export default function Hero() {
           <div className="hero-visual-bg"></div>
           <div className="hero-character-container">
             <Image 
-              src="/images/character.png" 
+              src="https://pub-bf3dd0628431475b81d6b32415920dc5.r2.dev/Home/character.png" 
               alt="Character" 
               fill 
               priority
               style={{ objectFit: 'contain', objectPosition: 'bottom' }} 
             />
+
           </div>
         </div>
       </div>

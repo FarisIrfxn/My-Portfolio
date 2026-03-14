@@ -158,5 +158,13 @@ export const ACHIEVEMENTS: Achievement[] = [
     link: "https://www.facebook.com/100064499360195/posts/projek-generatif-kecerdasan-buatan-ai-hasil-tangan-alumni-pisprojek-duri-ai-play/1006331308193505/",
     date: "JAN 2025",
     source: "Politeknik Ibrahim Sultan"
+  },
+  {
+    title: "Consulted & Validated AI Course Implementation for UTHM",
+    description:
+      "Had the opportunity to consult on and validate the implementation of an Artificial Intelligence learning course for Universiti Tun Hussein Onn Malaysia (UTHM), sharing practical industry insights to shape educational content.",
+    type: "memory",
+    date: "2024",
+    source: "UTHM"
   }
 ];

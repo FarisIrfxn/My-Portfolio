@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 const CATEGORIES = [
   { key: 'All', label: 'All' },
-  { key: 'video', label: 'Videos' },
+  { key: 'video', label: 'SocMed' },
   { key: 'post', label: 'Press' },
   { key: 'memory', label: 'Milestones' },
 ];
