@@ -1,5 +1,7 @@
 import { Project } from "../types";
 
+const R2_URL = "https://pub-bf3dd0628431475b81d6b32415920dc5.r2.dev/Projects";
+
 export const PROJECTS: Project[] = [
   {
     title: "AI ChatBot",
@@ -14,8 +16,8 @@ export const PROJECTS: Project[] = [
     forks: 85,
     id: "ChatBot",
     mockups: {
-      desktop: "/images/chatbot/desktop.png",
-      mobile: "/images/chatbot/mobile.png"
+      desktop: `${R2_URL}/ChatBot/desktop.png`,
+      mobile: `${R2_URL}/ChatBot/mobile.png`
     }
   },
   {
@@ -31,7 +33,7 @@ export const PROJECTS: Project[] = [
     forks: 21,
     id: "DuriooAI",
     mockups: {
-      desktop: "/images/duriooai/desktop.png"
+      desktop: `${R2_URL}/DuriooAI/desktop.png`
     }
   },
   {
@@ -47,9 +49,9 @@ export const PROJECTS: Project[] = [
     forks: 115,
     id: "DuriImageGen",
     mockups: {
-      mobile: "/images/duri-image-gen/mobile-center.png",
-      mobileLeft: "/images/duri-image-gen/mobile-left.png",
-      mobileRight: "/images/duri-image-gen/mobile-right.png"
+      mobile: `${R2_URL}/Duri-Imagen/mobile-center.png`,
+      mobileLeft: `${R2_URL}/Duri-Imagen/mobile-left.png`,
+      mobileRight: `${R2_URL}/Duri-Imagen/mobile-right.png`
     }
   },
   {
@@ -65,35 +67,9 @@ export const PROJECTS: Project[] = [
     forks: 112,
     id: "DuriooGPT",
     mockups: {
-      desktop: "/images/durioogpt/desktop.png",
-      mobile: "/images/durioogpt/mobile.png"
+      desktop: `${R2_URL}/DuriooGPT/desktop.png`,
+      mobile: `${R2_URL}/DuriooGPT/mobile.png`
     }
-  },
-  {
-    title: "Rotoscope",
-    tag: "VIDEO TOOL",
-    description: "Automated rotoscoping pipeline that isolates subjects from video backgrounds using AI-driven segmentation.",
-    tech: ["PYTHON", "OPENCV", "PYTORCH", "FFMPEG"],
-    impact: "Reduced manual rotoscoping time by 90% for production-level video assets.",
-    featured: false,
-    color: "#00BCD4",
-    category: "Video Production",
-    stars: 98,
-    forks: 27,
-    id: "Rotoscope"
-  },
-  {
-    title: "Motion Graphics",
-    tag: "VIDEO TOOL",
-    description: "Templated motion graphics engine for generating branded animated sequences programmatically.",
-    tech: ["AFTER EFFECTS", "PYTHON", "JAVASCRIPT", "SVG"],
-    impact: "Cut animated asset delivery time from days to hours across multiple campaigns.",
-    featured: false,
-    color: "#FF9800",
-    category: "Video Production",
-    stars: 74,
-    forks: 18,
-    id: "MotionGraphics"
   },
   {
     title: "AI Content",
@@ -239,6 +215,19 @@ export const PROJECTS: Project[] = [
     id: "N8nAutomation"
   },
   {
+    title: "LLM Quantization",
+    tag: "AI OPTIMIZATION",
+    description: "Deep quantization of Large Language Models (GGUF, AWQ, FP8) to enable efficient local execution on resource-constrained hardware.",
+    tech: ["PYTHON", "PYTORCH", "CUDA", "LLAMA.CPP"],
+    impact: "Successfully optimized 70B parameter models to run on 24GB VRAM with near-lossless accuracy.",
+    featured: false,
+    color: "#795548",
+    category: "AI/ML",
+    stars: 167,
+    forks: 42,
+    id: "LLMQuantization"
+  },
+  {
     title: "BraveGemini News",
     tag: "AI TOOL",
     description: "AI-curated news aggregator that summarises and fact-checks trending articles using the Gemini API.",
@@ -263,5 +252,31 @@ export const PROJECTS: Project[] = [
     stars: 245,
     forks: 71,
     id: "MobileAppDev"
+  },
+  {
+    title: "Rotoscope",
+    tag: "VIDEO TOOL",
+    description: "Automated rotoscoping pipeline that isolates subjects from video backgrounds using AI-driven segmentation.",
+    tech: ["PYTHON", "OPENCV", "PYTORCH", "FFMPEG"],
+    impact: "Reduced manual rotoscoping time by 90% for production-level video assets.",
+    featured: false,
+    color: "#00BCD4",
+    category: "Video Production",
+    stars: 98,
+    forks: 27,
+    id: "Rotoscope"
+  },
+  {
+    title: "Motion Graphics",
+    tag: "VIDEO TOOL",
+    description: "Templated motion graphics engine for generating branded animated sequences programmatically.",
+    tech: ["AFTER EFFECTS", "PYTHON", "JAVASCRIPT", "SVG"],
+    impact: "Cut animated asset delivery time from days to hours across multiple campaigns.",
+    featured: false,
+    color: "#FF9800",
+    category: "Video Production",
+    stars: 74,
+    forks: 18,
+    id: "MotionGraphics"
   }
 ];

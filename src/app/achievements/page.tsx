@@ -4,7 +4,8 @@ import { useState, useMemo } from 'react';
 import { ACHIEVEMENTS } from '@/constants/achievements';
 import {
   Play, Image as ImageIcon, FileText, Star,
-  ExternalLink, Instagram, Linkedin, Tv2, Newspaper, Globe
+  ExternalLink, Instagram, Linkedin, Tv2, Newspaper, Globe,
+  ChevronLeft, ChevronRight
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -52,6 +53,74 @@ const TYPE_COLORS: Record<string, string> = {
   image: '#00ACC1',
   memory: '#FF9800',
 };
+
+function ImageGallery({ images, type, previewStyle }: { images: string[], type: string, previewStyle?: React.CSSProperties }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!images || images.length === 0) {
+    return (
+      <div className="media-preview" style={previewStyle}>
+        <div className="media-visual" style={{ color: TYPE_COLORS[type] ?? 'var(--accent)' }}>
+          {getTypeIcon(type)}
+        </div>
+      </div>
+    );
+  }
+
+  const next = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prev = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  return (
+    <>
+      <div className="media-preview" style={previewStyle}>
+        <div className="gallery-main-container">
+          <div className="gallery-image-wrapper">
+            <img 
+              src={images[currentIndex]} 
+              alt="Achievement Detail" 
+              className="gallery-image"
+            />
+          </div>
+        </div>
+      </div>
+      
+      {images.length > 1 && (
+        <div className="gallery-dots-nav">
+          <button className="dot-nav-btn prev" onClick={prev} aria-label="Previous image">
+            <ChevronLeft size={18} />
+          </button>
+          
+          <div className="dots-container">
+            {images.map((_, i) => (
+              <span 
+                key={i} 
+                className={`nav-dot ${i === currentIndex ? 'active' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setCurrentIndex(i);
+                }}
+              />
+            ))}
+          </div>
+
+          <button className="dot-nav-btn next" onClick={next} aria-label="Next image">
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
 
 export default function AchievementsPage() {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -111,17 +180,14 @@ export default function AchievementsPage() {
               <div key={index} className="achievement-card-v3">
                 {/* Media top section */}
                 <div className="achievement-media-container">
-                  <div
-                    className="media-preview"
-                    style={{
+                  <ImageGallery 
+                    images={item.images || []} 
+                    type={item.type} 
+                    previewStyle={{
                       background: `linear-gradient(135deg, color-mix(in srgb, ${TYPE_COLORS[item.type] ?? '#5C6BC0'} 18%, var(--bg-secondary)), var(--tag-bg))`,
                     }}
-                  >
-                    <div className="media-visual" style={{ color: TYPE_COLORS[item.type] ?? 'var(--accent)' }}>
-                      {getTypeIcon(item.type)}
-                    </div>
-                    <div className="achievement-date-tag">{item.date}</div>
-                  </div>
+                  />
+                  <div className="achievement-date-tag">{item.date}</div>
                 </div>
 
                 {/* Content box */}

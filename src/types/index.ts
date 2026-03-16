@@ -41,6 +41,7 @@ export type Achievement = {
   description: string;
   type: 'image' | 'video' | 'post' | 'memory';
   thumbnail?: string;
+  images?: string[]; // Array for multiple images (R2 support)
   link?: string;
   date: string;
   source?: string;

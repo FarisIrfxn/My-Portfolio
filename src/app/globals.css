@@ -1071,6 +1071,17 @@ section {
     font-size: 3rem;
 }
 
+.achievement-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.achievement-card-floating:hover .achievement-card-img {
+    transform: scale(1.05);
+}
+
 .achievement-info {
     padding: 24px;
     display: flex;
@@ -1126,11 +1137,71 @@ section {
 }
 
 /* Achievements Stacked Deck Effect - Final Static Version */
+.achievements-deck-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deck-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--tag-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.deck-nav-btn:hover {
+    background: var(--accent-color);
+    color: var(--btn-text);
+    border-color: var(--accent-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.deck-nav-btn.prev {
+    left: 20px;
+}
+
+.deck-nav-btn.next {
+    right: 20px;
+}
+
+@media (max-width: 1200px) {
+    .deck-nav-btn {
+        width: 50px;
+        height: 50px;
+        background: rgba(var(--bg-color), 0.8);
+        backdrop-filter: blur(8px);
+    }
+}
+
+@media (max-width: 900px) {
+    .deck-nav-btn {
+        display: none; /* Rely on scrolling or stack on mobile */
+    }
+}
+
 .achievements-deck {
     position: relative;
-    height: 500px;
+    height: 520px;
+    width: 100%;
     max-width: 1000px;
-    margin: 80px auto;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1970,6 +2041,7 @@ section {
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease;
+    position: relative;
 }
 
 .achievement-card-v3:hover {
@@ -1983,18 +2055,110 @@ section {
 
 .media-preview {
     width: 100%;
-    aspect-ratio: 16 / 10;
     border-radius: 24px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    aspect-ratio: 16 / 10;
+    transition: all 0.3s ease;
 }
+
+.gallery-main-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-image-wrapper {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* removed unused gallery-container */
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.achievement-card-v3:hover .gallery-image {
+    transform: scale(1.05);
+}
+
+.gallery-dots-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 0 0;
+    width: 100%;
+}
+
+.dot-nav-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 4px;
+    border-radius: 50%;
+}
+
+.dot-nav-btn:hover {
+    color: var(--accent-color);
+    background: var(--tag-bg);
+}
+
+.dots-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-dot.active {
+    background: var(--accent-color);
+    transform: scale(1.4);
+}
+
+.nav-dot:hover {
+    background: var(--text-secondary);
+}
+
+.achievement-card-v3:hover .gallery-image {
+    transform: scale(1.02);
+}
+
+/* Removed old gallery nav and counter */
 
 .media-visual {
     color: var(--text-primary);
     opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .achievement-date-tag {
