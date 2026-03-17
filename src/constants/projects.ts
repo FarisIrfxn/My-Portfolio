@@ -15,6 +15,7 @@ export const PROJECTS: Project[] = [
     stars: 210,
     forks: 85,
     id: "ChatBot",
+    thumbnail: `${R2_URL}/ChatBot/thumbnail.png`,
     mockups: {
       desktop: `${R2_URL}/ChatBot/desktop.png`,
       mobile: `${R2_URL}/ChatBot/mobile.png`
@@ -32,6 +33,7 @@ export const PROJECTS: Project[] = [
     stars: 89,
     forks: 21,
     id: "DuriooAI",
+    thumbnail: `${R2_URL}/DuriooAI/thumbnail.png`,
     mockups: {
       desktop: `${R2_URL}/DuriooAI/desktop.png`
     }
@@ -48,6 +50,7 @@ export const PROJECTS: Project[] = [
     stars: 342,
     forks: 115,
     id: "DuriImageGen",
+    thumbnail: `${R2_URL}/Duri-Imagen/thumbnail.png`,
     mockups: {
       mobile: `${R2_URL}/Duri-Imagen/mobile-center.png`,
       mobileLeft: `${R2_URL}/Duri-Imagen/mobile-left.png`,
@@ -66,13 +69,14 @@ export const PROJECTS: Project[] = [
     stars: 567,
     forks: 112,
     id: "DuriooGPT",
+    thumbnail: `${R2_URL}/DuriooGPT/thumbnail.png`,
     mockups: {
       desktop: `${R2_URL}/DuriooGPT/desktop.png`,
       mobile: `${R2_URL}/DuriooGPT/mobile.png`
     }
   },
   {
-    title: "AI Content",
+    title: "Video-To-Video",
     tag: "AI TOOL",
     description: "End-to-end AI-powered content pipeline for script generation, image creation, and copy optimisation.",
     tech: ["OPENAI API", "LANGCHAIN", "NEXT.JS", "PYTHON"],
@@ -82,7 +86,8 @@ export const PROJECTS: Project[] = [
     category: "AI/ML",
     stars: 132,
     forks: 41,
-    id: "AIContent"
+    id: "Vid2Vid",
+    thumbnail: `${R2_URL}/Vid2Vid/thumbnail.png`
   },
   {
     title: "Aurat Intelligence",
@@ -95,7 +100,8 @@ export const PROJECTS: Project[] = [
     category: "AI/ML",
     stars: 187,
     forks: 52,
-    id: "AuratIntelligence"
+    id: "AuratIntelligence",
+    thumbnail: `${R2_URL}/AuratIntelligence/thumbnail.png`
   },
   {
     title: "Intro Remover",
@@ -108,7 +114,8 @@ export const PROJECTS: Project[] = [
     category: "Video Production",
     stars: 63,
     forks: 14,
-    id: "IntroRemover"
+    id: "IntroRemover",
+    thumbnail: `${R2_URL}/IntroRemover/thumbnail.png`
   },
   {
     title: "Watermark The Videos",
@@ -121,7 +128,8 @@ export const PROJECTS: Project[] = [
     category: "Video Production",
     stars: 45,
     forks: 11,
-    id: "WatermarkTheVideos"
+    id: "WatermarkTheVideos",
+    thumbnail: `${R2_URL}/WatermarkTheVideos/thumbnail.png`
   },
   {
     title: "Video Analyzer",
@@ -134,7 +142,8 @@ export const PROJECTS: Project[] = [
     category: "AI/ML",
     stars: 109,
     forks: 33,
-    id: "VideoAnalyzer"
+    id: "VideoAnalyzer",
+    thumbnail: `${R2_URL}/VidAnalyzer/thumbnail.png`
   },
   {
     title: "VocalOnly Generator",
@@ -147,7 +156,8 @@ export const PROJECTS: Project[] = [
     category: "Audio/Video",
     stars: 88,
     forks: 22,
-    id: "VocalOnlyGenerator"
+    id: "VocalOnlyGenerator",
+    thumbnail: `${R2_URL}/VocalOnlyGen/thumbnail.png`
   },
   {
     title: "Subtitle Generator",
@@ -160,7 +170,8 @@ export const PROJECTS: Project[] = [
     category: "AI/ML",
     stars: 154,
     forks: 47,
-    id: "SubtitleGenerator"
+    id: "SubtitleGenerator",
+    thumbnail: `${R2_URL}/SubtitleGen/thumbnail.png`
   },
   {
     title: "Compilation Generator",
@@ -173,7 +184,22 @@ export const PROJECTS: Project[] = [
     category: "Video Production",
     stars: 57,
     forks: 15,
-    id: "CompilationGenerator"
+    id: "CompilationGenerator",
+    thumbnail: `${R2_URL}/CompilationGen/thumbnail.png`
+  },
+  {
+    title: "Dubbing Generator",
+    tag: "AUDIO TOOL",
+    description: "Automated pipeline for generating dubbed videos from a library of clips based on metadata tags.",
+    tech: ["PYTHON", "FFMPEG", "PANDAS", "FASTAPI"],
+    impact: "Produced weekly compilation series at zero manual cost, growing channel watch time by 35%.",
+    featured: false,
+    color: "#FB8C00",
+    category: "Audio/Video",
+    stars: 57,
+    forks: 15,
+    id: "DubbingGenerator",
+    thumbnail: `${R2_URL}/DubbingGen/thumbnail.png`
   },
   {
     title: "Durioo Wrapped",
@@ -186,7 +212,8 @@ export const PROJECTS: Project[] = [
     category: "Web Development",
     stars: 201,
     forks: 58,
-    id: "DuriooWrapped"
+    id: "DuriooWrapped",
+    thumbnail: `${R2_URL}/DuriooWrapped/thumbnail.png`
   },
   {
     title: "Durioo IP Gems",
@@ -199,7 +226,8 @@ export const PROJECTS: Project[] = [
     category: "Web Development",
     stars: 76,
     forks: 19,
-    id: "DuriooIPGems"
+    id: "DuriooIPGems",
+    thumbnail: `${R2_URL}/DuriooGems/thumbnail.png`
   },
   {
     title: "n8n Automation Solution",
@@ -212,7 +240,8 @@ export const PROJECTS: Project[] = [
     category: "Automation",
     stars: 93,
     forks: 28,
-    id: "N8nAutomation"
+    id: "N8nAutomation",
+    thumbnail: `${R2_URL}/n8n/thumbnail.png`
   },
   {
     title: "LLM Quantization",
@@ -225,7 +254,8 @@ export const PROJECTS: Project[] = [
     category: "AI/ML",
     stars: 167,
     forks: 42,
-    id: "LLMQuantization"
+    id: "LLMQuantization",
+    thumbnail: `${R2_URL}/LLMQuantize/thumbnail.png`
   },
   {
     title: "BraveGemini News",
@@ -238,7 +268,8 @@ export const PROJECTS: Project[] = [
     category: "AI/ML",
     stars: 118,
     forks: 36,
-    id: "BraveGeminiNews"
+    id: "BraveGeminiNews",
+    thumbnail: `${R2_URL}/BraveGeminiNews/thumbnail.png`
   },
   {
     title: "Mobile App Dev",
@@ -251,7 +282,8 @@ export const PROJECTS: Project[] = [
     category: "Mobile Development",
     stars: 245,
     forks: 71,
-    id: "MobileAppDev"
+    id: "MobileAppDev",
+    thumbnail: `${R2_URL}/NotificationTest/thumbnail.png`
   },
   {
     title: "Rotoscope",
@@ -264,7 +296,8 @@ export const PROJECTS: Project[] = [
     category: "Video Production",
     stars: 98,
     forks: 27,
-    id: "Rotoscope"
+    id: "Rotoscope",
+    thumbnail: `${R2_URL}/Rotoscope/thumbnail.png`
   },
   {
     title: "Motion Graphics",
@@ -277,6 +310,7 @@ export const PROJECTS: Project[] = [
     category: "Video Production",
     stars: 74,
     forks: 18,
-    id: "MotionGraphics"
+    id: "MotionGraphics",
+    thumbnail: `${R2_URL}/MotionGraphic/thumbnail.png`
   }
 ];

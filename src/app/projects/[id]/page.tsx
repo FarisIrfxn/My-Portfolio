@@ -5,6 +5,7 @@ import { PROJECTS } from '@/constants/projects';
 import { ArrowLeft, ExternalLink, Github, Star, GitFork, Calendar, Tag, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
+import Image from 'next/image';
 
 export default function ProjectDetail() {
   const params = useParams();
@@ -62,15 +63,28 @@ export default function ProjectDetail() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '4rem',
                     marginBottom: '30px',
                     border: '1px solid var(--border-color)',
                     position: 'relative',
                     overflow: 'hidden'
                 }}
             >
-               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3))' }}></div>
-               <span style={{ zIndex: 1, position: 'relative' }}>{project.category === 'AI/ML' ? '🧠' : project.category === 'Web Development' ? '🌐' : '⚙️'}</span>
+               {project.thumbnail ? (
+                 <Image 
+                   src={project.thumbnail} 
+                   alt={project.title} 
+                   fill 
+                   style={{ objectFit: 'cover' }}
+                   priority
+                 />
+               ) : (
+                 <>
+                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3))' }}></div>
+                   <span style={{ zIndex: 1, position: 'relative', fontSize: '4rem' }}>
+                     {project.category === 'AI/ML' ? '🧠' : project.category === 'Web Development' ? '🌐' : '⚙️'}
+                   </span>
+                 </>
+               )}
             </div>
 
             <h1 style={{ fontSize: '2.5rem', fontWeight: '950', letterSpacing: '-1px', textAlign: 'left', marginBottom: '16px' }}>{project.title}</h1>

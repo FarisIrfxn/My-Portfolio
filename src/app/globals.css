@@ -1707,11 +1707,29 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--bg-secondary);
+}
+
+.card-thumbnail-wrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card-v3:hover .card-thumbnail-wrapper {
+    transform: scale(1.05);
+}
+
+.project-thumbnail-img {
+    transition: filter 0.3s ease;
 }
 
 .visual-overlay {
     position: absolute;
     inset: 0;
+    z-index: 1;
 }
 
 .visual-icon {

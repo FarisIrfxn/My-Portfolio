@@ -5,6 +5,7 @@ import Link from "next/link";
 import { PROJECTS } from "@/constants/projects";
 import { Search, Filter, Star, GitFork, Github, ExternalLink, SlidersHorizontal } from "lucide-react";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 
 const CATEGORIES = ["All Projects", "Web Development", "AI/ML", "Cloud Native CI/CD", "Backend"];
 
@@ -85,10 +86,24 @@ export default function ProjectsPage() {
                 </div>
 
                 <div className="card-visual-header" style={{ borderColor: project.color || 'var(--accent-color)' }}>
-                   <div className="visual-overlay" style={{ background: `linear-gradient(135deg, ${project.color}22, ${project.color}44)` }}></div>
-                   <div className="visual-icon">
-                      {project.category === 'AI/ML' ? '🧠' : project.category === 'Web Development' ? '🌐' : '⚙️'}
-                   </div>
+                   {project.thumbnail ? (
+                     <div className="card-thumbnail-wrapper">
+                       <Image 
+                         src={project.thumbnail} 
+                         alt={project.title} 
+                         fill 
+                         style={{ objectFit: 'cover' }}
+                         className="project-thumbnail-img"
+                       />
+                     </div>
+                   ) : (
+                     <>
+                       <div className="visual-overlay" style={{ background: `linear-gradient(135deg, ${project.color}22, ${project.color}44)` }}></div>
+                       <div className="visual-icon">
+                          {project.category === 'AI/ML' ? '🧠' : project.category === 'Web Development' ? '🌐' : '⚙️'}
+                       </div>
+                     </>
+                   )}
                 </div>
 
                 <div className="card-body">

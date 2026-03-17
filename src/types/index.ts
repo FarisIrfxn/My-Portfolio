@@ -10,6 +10,7 @@ export type Project = {
   forks?: number;
   category?: 'Web Development' | 'AI/ML' | 'Cloud Native CI/CD' | 'Backend' | 'Video Production' | 'Audio/Video' | 'Automation' | 'Mobile Development' | 'Other';
   id: string;
+  thumbnail?: string;
   mockups?: {
     desktop?: string;
     mobile?: string;
