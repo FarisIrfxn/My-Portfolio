@@ -3,26 +3,17 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { PROJECTS } from "@/constants/projects";
-import { Search, Filter, Star, GitFork, Github, ExternalLink, SlidersHorizontal } from "lucide-react";
-import Button from "@/components/ui/Button";
+import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 
-const CATEGORIES = ["All Projects", "Web Development", "AI/ML", "Cloud Native CI/CD", "Backend"];
+const CATEGORIES = ["All Projects", "Web Development", "AI/ML", "Mobile Development", "Media Production", "Automation"];
 
 export default function ProjectsPage() {
   const [activeCategory, setActiveCategory] = useState("All Projects");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredProjects = useMemo(() => {
-    return PROJECTS.filter(project => {
-      const matchesCategory = activeCategory === "All Projects" || project.category === activeCategory;
-      const matchesSearch = 
-        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.tech.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeCategory, searchQuery]);
+    return PROJECTS.filter(project => activeCategory === "All Projects" || project.category === activeCategory);
+  }, [activeCategory]);
 
   return (
     <main className="projects-list-page">
@@ -48,42 +39,17 @@ export default function ProjectsPage() {
              ))}
           </div>
 
-          {/* Search & Actions Bar */}
-          <div className="search-actions-bar">
-             <div className="search-input-wrapper">
-               <Search size={18} className="search-icon" />
-               <input 
-                type="text" 
-                placeholder="Search projects by name, description, or tags..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-               />
-             </div>
-             <div className="action-buttons">
-                <button className="action-btn"><SlidersHorizontal size={16} /> Sort</button>
-                <button className="action-btn"><Filter size={16} /> Filters</button>
-             </div>
-          </div>
-
           {/* Stats Bar */}
-          <div className="projects-stats-bar">
-             <span className="projects-count">Showing {filteredProjects.length} projects</span>
-             <span className="projects-sort-label">Sort: Date (Desc)</span>
+          <div className="projects-stats-bar" style={{ justifyContent: 'center', marginBottom: '32px' }}>
+             <span className="projects-count">Displaying {filteredProjects.length} projects</span>
           </div>
 
           {/* Projects Grid */}
           <div className="projects-mega-grid">
             {filteredProjects.map((project, idx) => (
               <div key={idx} className="project-card-v3">
-                <div className="card-top-header">
-                   <div className="github-stats">
-                      <span className="stat"><Star size={14} /> {project.stars || 0}</span>
-                      <span className="stat"><GitFork size={14} /> {project.forks || 0}</span>
-                   </div>
-                   <div className="github-logo">
-                      <Github size={20} />
-                   </div>
-                </div>
+                {/* Removed GitHub stats and logo for private company projects */}
+
 
                 <div className="card-visual-header" style={{ borderColor: project.color || 'var(--accent-color)' }}>
                    {project.thumbnail ? (
@@ -116,17 +82,6 @@ export default function ProjectsPage() {
                       ))}
                    </div>
 
-                   {/* Language Progress Bar Placeholder */}
-                   <div className="language-progress">
-                      <div className="progress-bar">
-                         <div className="progress-fill" style={{ width: '85%', backgroundColor: project.color }}></div>
-                         <div className="progress-fill secondary" style={{ width: '15%', backgroundColor: 'rgba(255,255,255,0.1)' }}></div>
-                      </div>
-                      <div className="progress-labels">
-                         <span className="label">● {project.tech[0]} 85%</span>
-                         <span className="label">● Other 15%</span>
-                      </div>
-                   </div>
 
                    <div className="card-footer">
                       <Link href={`/projects/${project.id}`}>
@@ -142,7 +97,7 @@ export default function ProjectsPage() {
 
           {filteredProjects.length === 0 && (
             <div className="no-results">
-               <p>No projects found matching your search. Try different terms!</p>
+               <p>No projects found in this category.</p>
             </div>
           )}
         </div>

@@ -142,25 +142,6 @@ export default function AchievementsPage() {
             Real press features, viral moments, TV appearances, and personal milestones from my journey in AI &amp; technology.
           </p>
 
-          {/* Stats bar */}
-          <div className="achievements-stats-bar">
-            <div className="ach-stat">
-              <span className="ach-stat-num">{ACHIEVEMENTS.length}</span>
-              <span className="ach-stat-label">Total Entries</span>
-            </div>
-            <div className="ach-stat">
-              <span className="ach-stat-num">{ACHIEVEMENTS.filter(a => a.type === 'post').length}</span>
-              <span className="ach-stat-label">Press Features</span>
-            </div>
-            <div className="ach-stat">
-              <span className="ach-stat-num">{ACHIEVEMENTS.filter(a => a.type === 'video').length}</span>
-              <span className="ach-stat-label">Video Features</span>
-            </div>
-            <div className="ach-stat">
-              <span className="ach-stat-num">{ACHIEVEMENTS.filter(a => a.type === 'memory').length}</span>
-              <span className="ach-stat-label">Milestones</span>
-            </div>
-          </div>
 
           {/* Filter Tabs */}
           <div className="category-filters">

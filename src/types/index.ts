@@ -6,17 +6,23 @@ export type Project = {
   impact: string;
   featured?: boolean;
   color?: string;
-  stars?: number;
-  forks?: number;
-  category?: 'Web Development' | 'AI/ML' | 'Cloud Native CI/CD' | 'Backend' | 'Video Production' | 'Audio/Video' | 'Automation' | 'Mobile Development' | 'Other';
+  category: string;
   id: string;
-  thumbnail?: string;
+  thumbnail: string;
   mockups?: {
     desktop?: string;
     mobile?: string;
     mobileLeft?: string;
     mobileRight?: string;
   };
+  workflow?: { step: string; description: string }[];
+  challenges?: { challenge: string; solution: string }[];
+  gallery?: string[];
+  galleryDetails?: { title: string; description: string }[];
+  status?: string;
+  year?: string;
+  github?: string;
+  link?: string;
 };
 
 export type TechCategory = {
