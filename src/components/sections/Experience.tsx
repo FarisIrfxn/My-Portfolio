@@ -1,5 +1,5 @@
 import { TIMELINE_DATA } from "@/constants/timeline";
-import { Briefcase, GraduationCap, ChevronDown } from "lucide-react";
+import { Briefcase, GraduationCap } from "lucide-react";
 
 export default function Experience() {
   return (
@@ -36,9 +36,7 @@ export default function Experience() {
                        {item.description}
                     </div>
 
-                    <button className="timeline-read-more">
-                        Read More <ChevronDown size={14} />
-                    </button>
+
                   </div>
 
                   {/* Spacer for the other side */}

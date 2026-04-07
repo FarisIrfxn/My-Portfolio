@@ -18,7 +18,13 @@ export type Project = {
   workflow?: { step: string; description: string }[];
   challenges?: { challenge: string; solution: string }[];
   gallery?: string[];
-  galleryDetails?: { title: string; description: string }[];
+  galleryDetails?: { 
+    title: string; 
+    description: string; 
+    maxWidth?: string; 
+    aspectRatio?: string;
+    flex?: string;
+  }[];
   status?: string;
   year?: string;
   github?: string;
@@ -46,10 +52,21 @@ export type TimelineItem = {
 export type Achievement = {
   title: string;
   description: string;
-  type: 'image' | 'video' | 'post' | 'memory';
+  type: 'image' | 'video' | 'post' | 'memory' | 'socmed' | 'news' | 'personal';
   thumbnail?: string;
   images?: string[]; // Array for multiple images (R2 support)
+  galleryDetails?: { 
+    title: string; 
+    description: string; 
+    maxWidth?: string; 
+    aspectRatio?: string;
+    flex?: string;
+  }[];
+  aspectRatio?: string; // Add top-level aspect ratio
+  maxWidth?: string; // Add top-level max width
   link?: string;
   date: string;
   source?: string;
+  icon?: string; // Custom icon (social media, etc.)
+  buttonText?: string; // Custom button text
 };

@@ -12,7 +12,6 @@ export default function Skills() {
   return (
     <section id="skills" className="skills-section">
       <div className="skills-header">
-        <span className="skills-subtitle">TECH STACK</span>
         <h2 className="section-title">My Skills</h2>
       </div>
 

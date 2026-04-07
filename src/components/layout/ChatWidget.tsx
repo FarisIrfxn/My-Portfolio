@@ -2,23 +2,39 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Message } from '@/types';
-import { MessageSquare, X, Minus } from 'lucide-react';
+import { MessageSquare, X, RotateCcw, Send } from 'lucide-react';
 
 const INITIAL_MESSAGES: Message[] = [
-  { role: 'assistant', content: 'Hi! I\'m Faris\'s AI assistant. You can ask me about his journey from animation to AI, his full-stack products, or his technical expertise. What would you like to know?' }
+  { role: 'assistant', content: 'Hi! I\'m Faris\'s AI assistant. You can ask me about his journey from production automation to AI, his full-stack products, or his technical expertise. What would you like to know?' }
 ];
 
-const SUGGESTIONS = [
-  "How did you save that animation company?",
-  "What is your technical stack?",
-  "What full-stack products have you built?",
-  "Are you available for new projects?"
-];
+async function query(data: { question: string; chatId?: string }) {
+  const response = await fetch(
+    "/api/chat", 
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || errorData.error || `HTTP error! status: ${response.status}`);
+  }
+
+  const result = await response.json();
+  return result;
+}
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [isTyping, setIsTyping] = useState(false);
+  const [input, setInput] = useState('');
+  const [chatId, setChatId] = useState(() => `chat-${Math.random().toString(36).substring(7)}`);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,28 +61,55 @@ export default function ChatWidget() {
     }
   }, [messages, isTyping, isOpen]);
 
-  const handleSuggestionClick = (suggestion: string) => {
-    if (isTyping) return;
+  const handleSend = async (text: string) => {
+    if (!text.trim() || isTyping) return;
 
-    const newMessages = [...messages, { role: 'user', content: suggestion } as Message];
+    const userMessage: Message = { role: 'user', content: text };
+    const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setIsTyping(true);
+    setInput('');
 
-    setTimeout(() => {
-      let response = "";
-      if (suggestion.includes("animation")) {
-        response = "During my internship, I developed an AI solution to automate modesty coverage in 2D animation frames. This saved the company from expensive re-renders and manual frame editing. It was a turning point that led to me becoming their AI Lead.";
-      } else if (suggestion.includes("stack")) {
-        response = "I work with a robust set of tools: Next.js, FastAPI, and Python for development. For databases, I use Neon, MongoDB, and Supabase. I deploy and manage systems using Google Cloud Platform (GCP), Hostinger VPS, and Docker.";
-      } else if (suggestion.includes("products")) {
-        response = "I've built end-to-end products including an Autonomous Enterprise Agent for corporate automation and various full-stack AI integrations using Next.js, PostgreSQL, and LLMs.";
+    try {
+      const response = await query({ question: text, chatId });
+      
+      let assistantContent = "";
+      
+      if (response && response.text) {
+        assistantContent = response.text;
+      } else if (response && response.json) {
+        assistantContent = typeof response.json === 'string' ? response.json : JSON.stringify(response.json);
+      } else if (response && response.message) {
+        assistantContent = response.message;
+      } else if (typeof response === 'string') {
+        assistantContent = response;
+      } else if (response && response.error) {
+        assistantContent = `Error: ${response.error}`;
       } else {
-        response = "I'm always open to discussing high-impact AI integrations. You can reach out via the contact section below or email me directly!";
+        assistantContent = "Sorry, I couldn't process your request. Please try again.";
       }
 
-      setMessages([...newMessages, { role: 'assistant', content: response }]);
+      const assistantMessage: Message = { 
+        role: 'assistant', 
+        content: assistantContent
+      };
+      setMessages([...newMessages, assistantMessage]);
+    } catch (error: any) {
+      console.error("Chat error:", error);
+      setMessages([...newMessages, { role: 'assistant', content: "Sorry, I'm having trouble connecting right now." }]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSend(input);
+  };
+
+  const handleClearChat = () => {
+    setMessages(INITIAL_MESSAGES);
+    setChatId(`chat-${Math.random().toString(36).substring(7)}`);
   };
 
   return (
@@ -87,8 +130,13 @@ export default function ChatWidget() {
             <span className="status-dot"></span>
             Faris AI Assistant
           </div>
-          <button className="chat-minimize" onClick={() => setIsOpen(false)}>
-            <Minus size={18} />
+          <button 
+            className="chat-clear" 
+            onClick={handleClearChat}
+            title="Clear Chat"
+          >
+            <RotateCcw size={14} />
+            <span>Clear</span>
           </button>
         </div>
         
@@ -109,21 +157,22 @@ export default function ChatWidget() {
         </div>
 
         <div className="chat-footer">
-          <p className="chat-hint">Quick Questions:</p>
-          <div className="suggestions-grid">
-            {SUGGESTIONS.map((s, i) => (
-              <button 
-                key={i} 
-                onClick={() => handleSuggestionClick(s)}
-                className="suggestion-btn"
-                disabled={isTyping}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
+          <form onSubmit={handleSubmit} className="chat-input-form">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask me anything..."
+              disabled={isTyping}
+            />
+            <button type="submit" disabled={isTyping || !input.trim()}>
+              <Send size={18} />
+            </button>
+          </form>
         </div>
       </div>
     </>
   );
 }
+
+

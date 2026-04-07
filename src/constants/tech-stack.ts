@@ -26,7 +26,8 @@ export const TECH_STACK: TechCategory[] = [
       { name: "Supabase", icon: "/images/skills/supabase.svg" },
       { name: "Neon", icon: "/images/skills/neon.svg" },
       { name: "MongoDB", icon: "/images/skills/mongodb.svg" },
-      { name: "SQLite", icon: "/images/skills/sqlite.svg" }
+      { name: "SQLite", icon: "/images/skills/sqlite.svg" },
+      { name: "BigQuery", icon: "/images/skills/bigquery.svg" }
     ]
   },
   {

@@ -82,7 +82,7 @@ export default function Achievements() {
                           target="_blank" 
                           className="achievement-btn"
                         >
-                          {data.type === 'video' ? 'View Clip' : 'View Coverage'}
+                          {data.buttonText ?? (data.type === 'video' ? 'View Clip' : 'View Coverage')}
                         </Button>
                       ) : (
                         <span className="achievement-milestone-tag">⭐ Personal Milestone</span>

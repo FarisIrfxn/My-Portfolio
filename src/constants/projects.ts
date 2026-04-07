@@ -59,8 +59,10 @@ export const PROJECTS: Project[] = [
     gallery: [`https://youtu.be/RZo-hnkZQBs`],
     galleryDetails: [
       {
-        title: "Video Showcase",
-        description: "Full Vid2Vid animation trace of Abibi - That's What I Like music video."
+        title: "Chatbot Demonstration",
+        description: "Full walkthrough of the AI support system in action, showing real-time agent handoff and content recommendations.",
+        maxWidth: "550px", // Kita bagi lebar sikit dari standard
+        aspectRatio: "16/9"
       }
     ]
 
@@ -108,12 +110,18 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/DuriooAI/image1.png`, `${R2_URL}/DuriooAI/image2.png`],
     galleryDetails: [
       {
-        title: "Demo DuriooAI",
-        description: "Demo of the DuriooAI.",
+        title: "Main Page",
+        description: "Onboarding and welcome page introducing the Durioo AI website.",
+        flex: "1 1 450px", // Biar dia kembang ikut ruang
+        maxWidth: "520px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo DuriooAI",
-        description: "Demo of the DuriooAI.",
+        title: "Dashboard Page",
+        description: "The centralized hub organizing all available automation and AI tools for the team.",
+        flex: "1 1 450px",
+        maxWidth: "520px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -174,16 +182,22 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/Duri-Imagen/mobile-center.png`, `${R2_URL}/Duri-Imagen/mobile-left.png`, `${R2_URL}/Duri-Imagen/mobile-right.png`],
     galleryDetails: [
       {
-        title: "Demo Duri Art Generator",
-        description: "Demo of the Duri Art Generator.",
+        title: "Main Page",
+        description: "Onboarding and welcome page introducing the Duri Image Gen website.",
+        maxWidth: "310px", // Size untuk muat 3 sebaris
+        aspectRatio: "9/16"
       },
       {
-        title: "Demo Duri Art Generator",
-        description: "Demo of the Duri Art Generator.",
+        title: "Prompt Page",
+        description: "The prompt has been refined to make it easier for children to use and optimized to support multiple languages.",
+        maxWidth: "310px",
+        aspectRatio: "9/16"
       },
       {
-        title: "Demo Duri Art Generator",
-        description: "Demo of the Duri Art Generator.",
+        title: "Result Page",
+        description: "Users can download and share the generated images.",
+        maxWidth: "310px",
+        aspectRatio: "9/16"
       }
     ]
   },
@@ -239,20 +253,32 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/DuriooGPT/image1.gif`, `${R2_URL}/DuriooGPT/image2.gif`, `${R2_URL}/DuriooGPT/image3.png`, `${R2_URL}/DuriooGPT/image4.png`],
     galleryDetails: [
       {
-        title: "Demo DuriooGPT",
-        description: "Demo of the DuriooGPT.",
+        title: "Knowledge Base Integration",
+        description: "RAG-powered chat that allows the team to interact with internal documents securely.",
+        flex: "1 1 450px",
+        maxWidth: "520px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo DuriooGPT",
-        description: "Demo of the DuriooGPT.",
+        title: "Multi-Model Chat",
+        description: "Switch between different AI models (GPT, Gemini, LLaMA) in a single unified interface.",
+        flex: "1 1 450px",
+        maxWidth: "520px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo DuriooGPT",
-        description: "Demo of the DuriooGPT.",
+        title: "Video Generation",
+        description: "Prompt-to-video integration using Google Veo and other creative models.",
+        flex: "1 1 450px",
+        maxWidth: "520px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo DuriooGPT",
-        description: "Demo of the DuriooGPT.",
+        title: "Image Generation",
+        description: "Prompt-to-image integration using Google Imagen and other creative models.",
+        flex: "1 1 450px",
+        maxWidth: "520px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -305,12 +331,18 @@ export const PROJECTS: Project[] = [
     gallery: [`https://youtu.be/wMm1x1dz_Fo`, `https://youtu.be/XopXDXaE4js`],
     galleryDetails: [
       {
-        title: "Video Showcase",
-        description: "Full Vid2Vid animation trace of Abibi - That's What I Like music video."
+        title: "Abibi PSA 1",
+        description: "Experimental results of video stylization before AI video generators existed.",
+        flex: "1 1 450px",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Image 1",
-        description: "Image 1"
+        title: "Abibi PSA 2",
+        description: "Experimental results of video stylization before AI video generators existed.",
+        flex: "1 1 450px",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       }
     ]
 
@@ -367,16 +399,24 @@ export const PROJECTS: Project[] = [
     gallery: [`https://youtu.be/u8MC5q-ssXs`, `https://youtu.be/0en_f3Fn4LY`, `https://youtube.com/shorts/Ab6QaorRga4`],
     galleryDetails: [
       {
-        title: "Demo Aurat Intelligence",
-        description: "Demo of the Aurat Intelligence.",
+        title: "Clothing Replacement",
+        description: "Replace the outfit of one of the main characters in Riseman",
+        maxWidth: "520px",
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo Aurat Intelligence",
-        description: "Demo of the Aurat Intelligence.",
+        title: "Object Removal",
+        description: "Remove the necklace from one of the main characters in the movie Kapten Pengu.",
+        maxWidth: "520px",
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo Aurat Intelligence",
-        description: "Demo of the Aurat Intelligence."
+        title: "Object Replacement",
+        description: "Replace the tongue with a closed mouth on the main cat in Cats The Movie.",
+        maxWidth: "320px",
+        aspectRatio: "9/16"
       }
     ]
   },
@@ -437,8 +477,10 @@ export const PROJECTS: Project[] = [
     gallery: [`https://youtu.be/nf2p0yQ4WRc`],
     galleryDetails: [
       {
-        title: "Demo Intro Remover",
-        description: "Demo of the Intro Remover.",
+        title: "Script Walkthrough",
+        description: "Shows how frames are detected and the intro is removed.",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -487,8 +529,10 @@ export const PROJECTS: Project[] = [
     gallery: [`https://youtu.be/-cHJzoPRimk`],
     galleryDetails: [
       {
-        title: "Demo WatermarkTheVideos",
-        description: "Demo of the WatermarkTheVideos.",
+        title: "Script Walkthrough",
+        description: "Shows how the script compresses and watermarks videos.",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -532,8 +576,10 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/VidAnalyzer/image1.png`],
     galleryDetails: [
       {
-        title: "Demo Video Analyzer",
-        description: "Demo of the Video Analyzer.",
+        title: "Metadata Example",
+        description: "Example of the metadata extracted from a video.",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -573,8 +619,10 @@ export const PROJECTS: Project[] = [
     gallery: [`https://youtu.be/1GFfzp7G0xM`],
     galleryDetails: [
       {
-        title: "Demo VocalOnly Generator",
-        description: "Demo of the VocalOnly Generator.",
+        title: "VocalOnly Showcase",
+        description: "Shows how it separates vocals from background music.",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -622,16 +670,25 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/SubtitleGen/image1.png`, `${R2_URL}/SubtitleGen/image2.png`, `${R2_URL}/SubtitleGen/image3.png`],
     galleryDetails: [
       {
-        title: "Demo Subtitle Generator",
-        description: "Demo of the Subtitle Generator.",
+        title: "Transcription Results",
+        description: "The transcription results of the video.",
+        maxWidth: "520px", // Besarkan supaya muat 2 saja sebaris
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo Subtitle Generator",
-        description: "Demo of the Subtitle Generator.",
+        title: "Successful Transcription",
+        description: "Successfully generated the subtitles for the video.",
+        maxWidth: "520px",
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo Subtitle Generator",
-        description: "Demo of the Subtitle Generator.",
+        title: "Multi-Language",
+        description: "Preview of the subtitles in multiple languages.",
+        maxWidth: "520px",
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -671,16 +728,25 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/CompilationGen/image1.png`, `${R2_URL}/CompilationGen/image2.png`, `${R2_URL}/CompilationGen/image3.png`],
     galleryDetails: [
       {
-        title: "Demo Compilation",
-        description: "Demo of the Compilation Generator.",
+        title: "Merging Process",
+        description: "Selecting and ordering multiple video clips for seamless merging.",
+        maxWidth: "520px", // Besarkan supaya muat 2 saja sebaris
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo Compilation",
-        description: "Demo of the Compilation Generator.",
+        title: "Thumbnail Extraction",
+        description: "Extracting thumbnails from the video.",
+        maxWidth: "520px",
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo Compilation",
-        description: "Demo of the Compilation Generator.",
+        title: "Final Output",
+        description: "Ready-to-use compiled video output after successful merging.",
+        maxWidth: "520px",
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -748,12 +814,18 @@ export const PROJECTS: Project[] = [
     gallery: [`https://youtu.be/FA_M3uuG54o`, `${R2_URL}/DubbingGen/image1.png`],
     galleryDetails: [
       {
-        title: "Demo Compilation",
-        description: "Demo of the Dubbing Generator.",
+        title: "Dubbing Results",
+        description: "Video outcome showing English dubbing perfectly aligned with original visuals.",
+        flex: "1 1 450px",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo Compilation",
-        description: "Demo of the Dubbing Generator.",
+        title: "Web Editor",
+        description: "Next.js based interface for precise manual segment and timing correction.",
+        flex: "1 1 450px",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -789,12 +861,16 @@ export const PROJECTS: Project[] = [
     gallery: [`https://www.youtube.com/shorts/Wi8sEqCb7M8`, `${R2_URL}/DuriooWrapped/image1.png`],
     galleryDetails: [
       {
-        title: "Durioo Wrapped",
-        description: "The main page of the Durioo Wrapped portal.",
+        title: "Personal Highlights",
+        description: "Animated mobile-first visualization of user's yearly activity on Durioo+.",
+        maxWidth: "320px",
+        aspectRatio: "9/16"
       },
       {
-        title: "Durioo Wrapped",
-        description: "The main page of the Durioo Wrapped portal.",
+        title: "Personalized Summary",
+        description: "Personalized summary of user's yearly activity on Durioo+.",
+        maxWidth: "320px",
+        aspectRatio: "9/16"
       }
     ]
   },
@@ -831,15 +907,24 @@ export const PROJECTS: Project[] = [
     galleryDetails: [
       {
         title: "Main Page",
-        description: "The main page of the Durioo IP Gems portal."
+        description: "Selection screen for different IP-specific Gemini Gems.",
+        maxWidth: "400px", // Lebar secukupnya untuk muat 2 saja sebaris
+        flex: "1 1 400px",
+        aspectRatio: "1/1"
       },
       {
-        title: "Character Generation",
-        description: "The character generation page of the Durioo IP Gems portal."
+        title: "Available Characters",
+        description: "Choosing character for the image generation.",
+        maxWidth: "400px",
+        flex: "1 1 400px",
+        aspectRatio: "1/1"
       },
       {
-        title: "Script Generation",
-        description: "The script generation page of the Durioo IP Gems portal."
+        title: "Image Gen Result",
+        description: "Result of the image generation in Google Gemini Custom.",
+        maxWidth: "400px",
+        flex: "1 1 400px",
+        aspectRatio: "1/1"
       }
     ]
   },
@@ -879,16 +964,25 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/n8n/image1.png`, `${R2_URL}/n8n/image2.png`, `${R2_URL}/n8n/image3.png`],
     galleryDetails: [
       {
-        title: "Demo n8n Automation",
-        description: "Demo of the n8n Automation.",
+        title: "Simple Chatbot",
+        description: "Simple nodes for simple chatbot.",
+        maxWidth: "520px", // Besarkan supaya muat 2 saja sebaris
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo n8n Automation",
-        description: "Demo of the n8n Automation.",
+        title: "Database Query",
+        description: "Use AI for database queries.",
+        maxWidth: "520px",
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Demo n8n Automation",
-        description: "Demo of the n8n Automation.",
+        title: "Knowledge Base Automation",
+        description: "Extract database for knowledge base.",
+        maxWidth: "520px",
+        flex: "1 1 450px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -903,6 +997,7 @@ export const PROJECTS: Project[] = [
     category: "AI/ML",
     id: "LLMQuantization",
     year: "2024",
+    link: "https://huggingface.co/FarisIrfxn/malaysian-llama2-7b-32k-instructions-v2-GGUF",
     thumbnail: `${R2_URL}/LLMQuantize/thumbnail.png`,
     workflow: [
       {
@@ -928,8 +1023,10 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/LLMQuantize/image1.png`],
     galleryDetails: [
       {
-        title: "Q8 Model",
-        description: "The model in huggingface."
+        title: "Model Showcase",
+        description: "The quantized Malay LLM model hosted on Hugging Face, optimized for local inference.",
+        maxWidth: "320px", // Optimization for portrait
+        aspectRatio: "9/16"
       }
     ]
   },
@@ -944,6 +1041,7 @@ export const PROJECTS: Project[] = [
     category: "Web Development",
     id: "BraveGeminiNews",
     year: "2025",
+    github: "https://github.com/FarisIrfxn/BraveGemini-News",
     thumbnail: `${R2_URL}/BraveGeminiNews/thumbnail.png`,
     workflow: [
       {
@@ -973,8 +1071,10 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/BraveGeminiNews/image1.png`],
     galleryDetails: [
       {
-        title: "Main Page",
-        description: "The system fetches news articles from the Brave API and enhances them with AI-generated summaries using Gemini."
+        title: "News Dashboard",
+        description: "AI-summarized news feed fetching real-time data from the Brave API.",
+        maxWidth: "400px", // Sesuai untuk square item
+        aspectRatio: "1/1"
       }
     ]
   },
@@ -989,6 +1089,7 @@ export const PROJECTS: Project[] = [
     category: "Mobile Development",
     id: "NotificationTest",
     year: "2026",
+    github: "https://github.com/FarisIrfxn/NotiTest",
     thumbnail: `${R2_URL}/NotificationTest/thumbnail.png`,
     workflow: [
       {
@@ -1018,12 +1119,16 @@ export const PROJECTS: Project[] = [
     gallery: [`${R2_URL}/NotificationTest/image1.png`, `${R2_URL}/NotificationTest/image2.jpeg`],
     galleryDetails: [
       {
-        title: "TicTacToe Game",
-        description: "A simple Tic-Tac-Toe game with health system."
+        title: "Game Interface",
+        description: "Tic-Tac-Toe mobile game built with Expo and React Native.",
+        maxWidth: "320px", // Sesuai untuk mobile layout
+        aspectRatio: "9/16"
       },
       {
-        title: "Notification",
-        description: "Notification sent when the game ends."
+        title: "Push Notification",
+        description: "Native push notification successfully delivered via OneSignal integration.",
+        maxWidth: "320px",
+        aspectRatio: "9/16"
       }
     ]
   },
@@ -1038,6 +1143,7 @@ export const PROJECTS: Project[] = [
     category: "Media Production",
     id: "Rotoscope",
     year: "2022",
+    link: "https://youtu.be/7siQMLxLG-4",
     thumbnail: `${R2_URL}/Rotoscope/thumbnail.png`,
     workflow: [
       {
@@ -1067,8 +1173,10 @@ export const PROJECTS: Project[] = [
     gallery: ["https://youtu.be/7siQMLxLG-4"],
     galleryDetails: [
       {
-        title: "Video Showcase",
-        description: "Full rotoscope animation trace of Bruno Mars - That's What I Like music video."
+        title: "Bruno Mars",
+        description: "Frame-by-frame stylized tracing of the 'That's What I Like' music video.",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -1083,6 +1191,7 @@ export const PROJECTS: Project[] = [
     category: "Media Production",
     id: "MotionGraphics",
     year: "2022",
+    link: "https://youtu.be/7EmxyM7Q0hY",
     thumbnail: `${R2_URL}/MotionGraphic/thumbnail.png`,
     workflow: [
       {
@@ -1112,12 +1221,18 @@ export const PROJECTS: Project[] = [
     gallery: ["https://youtu.be/7EmxyM7Q0hY", "https://youtu.be/ptB3ImvZByU"],
     galleryDetails: [
       {
-        title: "Video Showcase",
-        description: "Full typography-based motion graphics animation of a song."
+        title: "Typography Animation 1",
+        description: "Based on Five Nights at Freddy's - It's Been So Long.",
+        flex: "1 1 450px",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       },
       {
-        title: "Video Showcase",
-        description: "Full typography-based motion graphics animation of a song."
+        title: "Typography Animation 2",
+        description: "Based on Cuco - Lo Que Siento.",
+        flex: "1 1 450px",
+        maxWidth: "550px",
+        aspectRatio: "16/9"
       }
     ]
   }

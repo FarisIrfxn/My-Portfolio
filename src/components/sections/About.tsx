@@ -5,10 +5,10 @@ export default function About() {
         <div className="about-text">
           <h2 className="section-title">About Me</h2>
           <p className="about-narrative">
-            I'm an <strong>AI Lead and Full-Stack Vibe Coder</strong> with a unique background that bridges the gap between high-end 2D animation and production-ready AI systems. My journey started in the creative industry, where I learned to solve real-world production bottlenecks using automation. 
+            I'm an <strong>AI Lead and Full-Stack Developer</strong> with a unique background that bridges the gap between complex creative workflows and production-ready AI systems. My journey began in the creative industry, where I specialized in solving real-world production bottlenecks through high-impact automation and intelligent systems.
           </p>
           <p className="about-narrative">
-            Today, I focus on building impact-driven AI solutions that don't just exist as prototypes but actually solve business problems. Whether it's architecting autonomous agents or building scalable full-stack products, I bring a mix of creative problem-solving and technical autority to every project.
+            Today, I focus on building impact-driven AI solutions that don't just exist as prototypes but actually solve business problems. Whether it's architecting autonomous agents or building scalable full-stack products, I bring a mix of creative problem-solving and technical authority to every project.
           </p>
         </div>
 

@@ -4,11 +4,7 @@ import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import { PROJECTS } from '@/constants/projects';
-import { ArrowLeft, ExternalLink, Github, Calendar, Tag, CheckCircle2, Workflow, Cpu, Database, Zap, PlayCircle, Lightbulb, AlertTriangle, TrendingUp, Code, Image as ImageIcon, ArrowRight, Terminal, ChevronRight, ChevronLeft, LayoutList, Monitor, Smartphone } from 'lucide-react';
-
-
-
-
+import { ArrowLeft, ExternalLink, Github, Calendar, Tag, CheckCircle2, Workflow, Cpu, Database, Zap, PlayCircle, Lightbulb, AlertTriangle, TrendingUp, Code, Image as ImageIcon, ArrowRight, Terminal, ChevronRight, ChevronLeft, LayoutList, Monitor, Smartphone, X } from 'lucide-react';
 
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
@@ -28,12 +24,14 @@ function isShort(url: string) {
 }
 
 export default function ProjectDetail() {
+  const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null);
 
   const params = useParams();
   const id = params?.id;
   const router = useRouter();
 
   const project = PROJECTS.find(p => p.id === id);
+  const selectedImage = (selectedIndex !== null && project?.gallery) ? project.gallery[selectedIndex] : null;
 
   if (!project) {
     return (
@@ -115,9 +113,6 @@ export default function ProjectDetail() {
                <span className="tech-chip">{project.category}</span>
             </div>
 
-
-
-
             <div className="detail-section" style={{ marginBottom: '48px' }}>
               <h2 style={{ fontSize: '1.25rem', fontWeight: '900', marginBottom: '16px' }}>Overview</h2>
               <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: '1.8' }}>
@@ -152,9 +147,7 @@ export default function ProjectDetail() {
                     </div>
                   </div>
                 </div>
-
               </div>
-
 
               <div className="sidebar-tech-list" style={{ marginTop: '32px' }}>
                 <h4 style={{ fontSize: '1rem', fontWeight: '800', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -184,7 +177,6 @@ export default function ProjectDetail() {
                   ))}
                 </div>
               </div>
-
 
               <div className="sidebar-actions-detail" style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {(project.link || project.github) ? (
@@ -333,14 +325,20 @@ export default function ProjectDetail() {
           <div className="project-gallery-grid" style={{
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '24px', // Standardized gap
+              gap: '24px',
               justifyContent: 'center',
               alignItems: 'start',
               maxWidth: '1200px',
               margin: '0 auto'
           }}>
-              {(project.gallery || ["", "", ""]).map((imgUrl, idx) => (
-                  <div key={idx} className="gallery-item-card" style={{
+              {(project.gallery || ["", "", ""]).map((imgUrl, idx) => {
+                  const ytId = getYouTubeId(imgUrl);
+                  return (
+                  <div
+                    key={idx}
+                    className="gallery-item-card"
+                    onClick={() => !ytId && imgUrl && setSelectedIndex(idx)}
+                    style={{
                       background: 'var(--card-bg)',
                       border: '1px solid var(--border-color)',
                       borderRadius: '24px',
@@ -349,32 +347,32 @@ export default function ProjectDetail() {
                       display: 'flex',
                       flexDirection: 'column',
                       transition: 'all 0.3s ease',
-                      flexShrink: 0, // Prevent cards from shrinking too much
-                      // Content-aware max width: 320px for images/shorts, 650px for regular videos
-                      maxWidth: getYouTubeId(imgUrl) 
-                        ? (isShort(imgUrl) ? '320px' : '650px') 
-                        : '320px',
-                      width: '100%', 
-                      margin: '0' 
-                  }}>
-                      <div style={{ 
-                          position: 'relative', 
-                          // Handle aspect ratio: 9/16 for shorts, 16/9 for regular videos, auto for images
-                          aspectRatio: getYouTubeId(imgUrl) 
-                            ? (isShort(imgUrl) ? '9/16' : '16/9') 
-                            : 'auto', 
-                          background: `linear-gradient(135deg, ${project.color || 'var(--accent-color)'}22 0%, ${project.color || 'var(--accent-color)'}05 100%)`, 
-                          display: 'block', 
+                      flexShrink: 0,
+                      cursor: (!ytId && imgUrl) ? 'zoom-in' : 'default',
+                      maxWidth: project.galleryDetails?.[idx]?.maxWidth || (ytId
+                        ? (isShort(imgUrl) ? '320px' : '650px')
+                        : '320px'),
+                      flex: project.galleryDetails?.[idx]?.flex || '0 1 auto',
+                      width: '100%',
+                      margin: '0'
+                    }}>
+                      <div style={{
+                          position: 'relative',
+                          aspectRatio: project.galleryDetails?.[idx]?.aspectRatio || (ytId
+                            ? (isShort(imgUrl) ? '9/16' : '16/9')
+                            : 'auto'),
+                          background: `linear-gradient(135deg, ${project.color || 'var(--accent-color)'}22 0%, ${project.color || 'var(--accent-color)'}05 100%)`,
+                          display: 'block',
                           overflow: 'hidden'
                       }}>
                           {/* Artistic Background Shapes (only for dummy/video overlays) */}
-                          {(!imgUrl || getYouTubeId(imgUrl)) && (
-                            <div style={{ 
-                                position: 'absolute', 
-                                width: '150px', 
-                                height: '150px', 
-                                borderRadius: '50%', 
-                                background: project.color || 'var(--accent-color)', 
+                          {(!imgUrl || ytId) && (
+                            <div style={{
+                                position: 'absolute',
+                                width: '150px',
+                                height: '150px',
+                                borderRadius: '50%',
+                                background: project.color || 'var(--accent-color)',
                                 opacity: 0.1,
                                 filter: 'blur(40px)',
                                 top: '-20px',
@@ -382,9 +380,8 @@ export default function ProjectDetail() {
                                 zIndex: 0
                             }}></div>
                           )}
- 
+
                           {(() => {
-                              const ytId = getYouTubeId(imgUrl);
                               if (ytId) {
                                   return (
                                       <iframe
@@ -432,70 +429,128 @@ export default function ProjectDetail() {
                               );
                           })()}
 
-                          {/* Overlay Content within the Media Container to Lock Ratio */}
+                          {/* Gradient Overlay Caption */}
                           <div style={{
                               position: 'absolute',
                               bottom: 0,
                               left: 0,
                               right: 0,
-                              padding: '20px 16px 12px',
-                              background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 60%, transparent 100%)',
-                              backdropFilter: 'blur(5px)',
-                              borderTop: '1px solid rgba(255,255,255,0.1)',
-                              pointerEvents: 'none', // Allow clicking video behind it
-                              zIndex: 2
+                              padding: '80px 16px 16px',
+                              background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0.1) 85%, transparent 100%)',
+                              pointerEvents: 'none',
+                              zIndex: 2,
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'flex-end'
                           }}>
-                              <div style={{ fontSize: '0.7rem', fontWeight: '900', color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '4px' }}>
-                                  {project.galleryDetails?.[idx]?.title || (getYouTubeId(imgUrl) ? 'Video Showcase' : `Screenshot 0${idx + 1}`)}
+                              <div style={{
+                                  fontSize: '0.9rem',
+                                  fontWeight: '800',
+                                  color: '#fff',
+                                  marginBottom: '4px',
+                                  textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+                              }}>
+                                  {project.galleryDetails?.[idx]?.title || (ytId ? 'Video Showcase' : `Screenshot 0${idx + 1}`)}
                               </div>
-                              <div style={{ 
-                                  fontSize: '0.75rem', 
-                                  color: 'rgba(255,255,255,0.9)', 
-                                  lineHeight: '1.4', 
-                                  fontWeight: '500',
+                              <div style={{
+                                  fontSize: '0.8rem',
+                                  color: 'rgba(255,255,255,0.9)',
+                                  lineHeight: '1.5',
+                                  fontWeight: '400',
+                                  textShadow: '0 1px 5px rgba(0,0,0,0.5)',
                                   display: '-webkit-box',
                                   WebkitLineClamp: 2,
                                   WebkitBoxOrient: 'vertical',
                                   overflow: 'hidden'
                               }}>
-                                  {project.galleryDetails?.[idx]?.description || (getYouTubeId(imgUrl) ? 'Watch the full video demonstration on YouTube.' : 
-                                   idx === 0 ? 'Main interface overview and primary user workflow.' : 
-                                   idx === 1 ? 'Detailed breakdown of system components and features.' : 
+                                  {project.galleryDetails?.[idx]?.description || (ytId ? 'Watch the full video demonstration on YouTube.' :
+                                   idx === 0 ? 'Main interface overview and primary user workflow.' :
+                                   idx === 1 ? 'Detailed breakdown of system components and features.' :
                                    'Technical implementation and backend architecture.')}
                               </div>
                           </div>
                       </div>
                   </div>
-              ))}
+                  );
+              })}
           </div>
         </div>
 
-        {/* Impact Section at the Bottom */}
+        {/* Impact Section - Compact Monochrome Style */}
         {project.impact && (
-          <div className="detail-impact-section" style={{ marginTop: '40px', paddingTop: '40px', borderTop: '1px solid var(--border-color)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px', justifyContent: 'center' }}>
-                  <TrendingUp size={28} style={{ color: 'var(--accent-color)' }} />
-                  <h2 style={{ fontSize: '1.75rem', fontWeight: '950', letterSpacing: '-1px' }}>Impact</h2>
-              </div>
+          <div className="detail-impact-section" style={{ 
+            marginTop: '60px', 
+            paddingBottom: '20px'
+          }}>
               <div style={{ 
                   background: 'var(--card-bg)', 
-                  padding: '32px 40px', 
-                  borderRadius: '24px', 
+                  padding: '32px 32px', // More compact padding
+                  borderRadius: '20px', 
                   textAlign: 'center',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
-                  maxWidth: '700px',
-                  margin: '0 auto',
-                  border: '1px solid var(--border-color)'
+                  position: 'relative',
+                  overflow: 'hidden',
+                  border: '1px solid var(--border-color)',
+                  boxShadow: '0 8px 30px rgba(0,0,0,0.04)'
               }}>
-                  <p style={{ 
-                    fontSize: '1.2rem', 
-                    color: 'var(--text-primary)', 
-                    lineHeight: '1.7', 
-                    fontWeight: '600', 
-                    margin: 0 
+                  {/* Subtle Decorative Quote Icon - Smaller */}
+                  <div style={{ 
+                    fontSize: '10rem', 
+                    position: 'absolute', 
+                    top: '-30px', 
+                    left: '50%', 
+                    transform: 'translateX(-50%)', 
+                    opacity: 0.05, 
+                    color: 'var(--text-primary)',
+                    fontFamily: 'serif',
+                    zIndex: 0,
+                    pointerEvents: 'none'
                   }}>
-                      "{project.impact}"
-                  </p>
+                    &ldquo;
+                  </div>
+
+                  {/* Subtle Trending Icon (Monochrome) - Smaller */}
+                  <TrendingUp size={110} style={{ 
+                      position: 'absolute', 
+                      right: '-15px', 
+                      bottom: '-15px', 
+                      opacity: 0.04, 
+                      color: 'var(--text-primary)',
+                      transform: 'rotate(-10deg)',
+                      zIndex: 0
+                  }} />
+
+                  <div style={{ 
+                    fontSize: '0.8rem', 
+                    fontWeight: '900', 
+                    color: 'var(--text-primary)', 
+                    opacity: 0.4,
+                    textTransform: 'uppercase', 
+                    letterSpacing: '5px',
+                    marginBottom: '20px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '12px',
+                    position: 'relative',
+                    zIndex: 1
+                  }}>
+                    <span style={{ height: '1px', width: '25px', background: 'var(--border-color)' }}></span>
+                    Impact
+                    <span style={{ height: '1px', width: '25px', background: 'var(--border-color)' }}></span>
+                  </div>
+
+                  <div style={{ position: 'relative', maxWidth: '650px', margin: '0 auto', zIndex: 1 }}>
+                      <h2 style={{ 
+                          fontSize: '1.2rem', // Reduced for better balance
+                          fontWeight: '700', // Slightly lower for clarity
+                          color: 'var(--text-primary)', 
+                          lineHeight: '1.6', // Better line height for smaller text
+                          letterSpacing: '0', // Standard spacing
+                          margin: 0
+                      }}>
+                          "{project.impact}"
+                      </h2>
+                  </div>
               </div>
           </div>
         )}
@@ -601,7 +656,83 @@ export default function ProjectDetail() {
         </div>
 
       </div>
+
+      {/* Image Lightbox Modal */}
+      {selectedIndex !== null && selectedImage && (
+        <div
+          onClick={() => setSelectedIndex(null)}
+          style={{
+            position: 'fixed',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.85)', // Nampak sikit overlay belakang
+            backdropFilter: 'blur(10px)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+            cursor: 'zoom-out'
+          }}
+        >
+          <button
+            onClick={(e) => { e.stopPropagation(); setSelectedIndex(null); }}
+            style={{
+              position: 'absolute',
+              top: '24px', right: '24px',
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              color: '#fff',
+              borderRadius: '50%',
+              width: '48px', height: '48px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 10000
+            }}
+          >
+            <X size={22} />
+          </button>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{ 
+                maxHeight: '90vh', 
+                maxWidth: '900px', // Limit width for text readability
+                width: '100%',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '20px'
+            }}
+          >
+            <img
+              src={selectedImage}
+              alt="Gallery Fullscreen"
+              style={{
+                maxHeight: '75vh',
+                maxWidth: '100%',
+                objectFit: 'contain',
+                borderRadius: '16px',
+                boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
+                display: 'block'
+              }}
+            />
+            
+            {/* Modal Image Info */}
+            <div style={{
+                textAlign: 'center',
+                color: '#fff',
+                maxWidth: '600px'
+            }}>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: '900', marginBottom: '8px' }}>
+                    {project.galleryDetails?.[selectedIndex]?.title || `Screenshot 0${selectedIndex + 1}`}
+                </h3>
+                <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)', lineHeight: '1.6' }}>
+                    {project.galleryDetails?.[selectedIndex]?.description || "Detailed view of the project component."}
+                </p>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
-

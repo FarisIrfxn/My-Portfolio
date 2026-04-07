@@ -5,25 +5,29 @@ import { ACHIEVEMENTS } from '@/constants/achievements';
 import {
   Play, Image as ImageIcon, FileText, Star,
   ExternalLink, Instagram, Linkedin, Tv2, Newspaper, Globe,
-  ChevronLeft, ChevronRight
+  ChevronLeft, ChevronRight, X, Maximize2, Facebook, Youtube
 } from 'lucide-react';
 import Link from 'next/link';
 
 const CATEGORIES = [
   { key: 'All', label: 'All' },
-  { key: 'video', label: 'SocMed' },
-  { key: 'post', label: 'Press' },
-  { key: 'memory', label: 'Milestones' },
+  { key: 'socmed', label: 'SocMed' },
+  { key: 'news', label: 'News' },
+  { key: 'personal', label: 'Personal' },
 ];
 
-function getSourceIcon(source?: string) {
-  if (!source) return <Globe size={15} />;
+function getSourceIcon(achievement: any) {
+  if (achievement.icon === 'facebook') return <Facebook size={12} />;
+  if (achievement.icon === 'youtube') return <Youtube size={12} />;
+  
+  const source = achievement.source;
+  if (!source) return <Globe size={11} />;
   const s = source.toLowerCase();
-  if (s.includes('instagram')) return <Instagram size={15} />;
-  if (s.includes('linkedin')) return <Linkedin size={15} />;
-  if (s.includes('tv') || s.includes('television')) return <Tv2 size={15} />;
-  if (s.includes('amanz') || s.includes('kosmo') || s.includes('buletin') || s.includes('blog') || s.includes('politeknik') || s.includes('tech samana') || s.includes('ikiim')) return <Newspaper size={15} />;
-  return <Globe size={15} />;
+  if (s.includes('instagram')) return <Instagram size={11} />;
+  if (s.includes('linkedin')) return <Linkedin size={11} />;
+  if (s.includes('tv') || s.includes('television')) return <Tv2 size={11} />;
+  if (s.includes('amanz') || s.includes('kosmo') || s.includes('buletin') || s.includes('blog') || s.includes('politeknik') || s.includes('tech samana') || s.includes('ikiim')) return <Newspaper size={11} />;
+  return <Globe size={11} />;
 }
 
 function getTypeIcon(type: string) {
@@ -33,7 +37,10 @@ function getTypeIcon(type: string) {
   return <FileText size={36} />;
 }
 
-function getLinkLabel(source?: string) {
+function getLinkLabel(achievement: any) {
+  if (achievement.buttonText) return achievement.buttonText;
+
+  const source = achievement.source;
   if (!source) return 'View Post';
   const s = source.toLowerCase();
   if (s.includes('instagram')) return 'View on Instagram';
@@ -54,14 +61,36 @@ const TYPE_COLORS: Record<string, string> = {
   memory: '#FF9800',
 };
 
-function ImageGallery({ images, type, previewStyle }: { images: string[], type: string, previewStyle?: React.CSSProperties }) {
+function ImageGallery({
+  images,
+  type,
+  previewStyle,
+  isModal = false,
+  galleryDetails,
+  defaultAspectRatio,
+  defaultMaxWidth,
+  onOpenModal
+}: {
+  images: string[],
+  type: string,
+  previewStyle?: React.CSSProperties,
+  isModal?: boolean,
+  galleryDetails?: { maxWidth?: string; aspectRatio?: string; flex?: string; }[],
+  defaultAspectRatio?: string,
+  defaultMaxWidth?: string,
+  onOpenModal?: () => void
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!images || images.length === 0) {
     return (
-      <div className="media-preview" style={previewStyle}>
-        <div className="media-visual" style={{ color: TYPE_COLORS[type] ?? 'var(--accent)' }}>
-          {getTypeIcon(type)}
+      <div className="achievement-media-side">
+        <div className="achievement-media-container">
+          <div className="media-preview" style={previewStyle}>
+            <div className="media-visual" style={{ color: TYPE_COLORS[type] ?? 'var(--accent)' }}>
+              {getTypeIcon(type)}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -80,29 +109,43 @@ function ImageGallery({ images, type, previewStyle }: { images: string[], type: 
   };
 
   return (
-    <>
-      <div className="media-preview" style={previewStyle}>
-        <div className="gallery-main-container">
-          <div className="gallery-image-wrapper">
-            <img 
-              src={images[currentIndex]} 
-              alt="Achievement Detail" 
-              className="gallery-image"
-            />
+    <div className="achievement-media-side">
+      <div className="achievement-media-container" onClick={onOpenModal}>
+        <div className="media-preview" style={previewStyle}>
+          <div className="gallery-main-container" style={{ width: '100%', height: '100%', position: 'relative' }}>
+            <div className="gallery-image-wrapper" style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img
+                key={currentIndex}
+                src={images[currentIndex]}
+                alt="Achievement Detail"
+                className="gallery-image"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: isModal ? 'contain' : 'cover',
+                  animation: 'fadeIn 0.6s ease-out'
+                }}
+              />
+            </div>
+            {!isModal && (
+              <div className="media-expand-icon">
+                <Maximize2 size={14} />
+              </div>
+            )}
           </div>
         </div>
       </div>
-      
-      {images.length > 1 && (
+
+      {!isModal && images.length > 1 && (
         <div className="gallery-dots-nav">
           <button className="dot-nav-btn prev" onClick={prev} aria-label="Previous image">
-            <ChevronLeft size={18} />
+            <span className="nav-arrows">&lt;</span>
           </button>
-          
+
           <div className="dots-container">
             {images.map((_, i) => (
-              <span 
-                key={i} 
+              <span
+                key={i}
                 className={`nav-dot ${i === currentIndex ? 'active' : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
@@ -114,16 +157,17 @@ function ImageGallery({ images, type, previewStyle }: { images: string[], type: 
           </div>
 
           <button className="dot-nav-btn next" onClick={next} aria-label="Next image">
-            <ChevronRight size={18} />
+            <span className="nav-arrows">&gt;</span>
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
 export default function AchievementsPage() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [selectedAchievement, setSelectedAchievement] = useState<any>(null);
 
   const filteredAchievements = useMemo(() => {
     return ACHIEVEMENTS.filter(item =>
@@ -159,36 +203,31 @@ export default function AchievementsPage() {
           <div className="achievements-mega-grid">
             {filteredAchievements.map((item, index) => (
               <div key={index} className="achievement-card-v3">
-                {/* Media top section */}
-                <div className="achievement-media-container">
-                  <ImageGallery 
-                    images={item.images || []} 
-                    type={item.type} 
-                    previewStyle={{
-                      background: `linear-gradient(135deg, color-mix(in srgb, ${TYPE_COLORS[item.type] ?? '#5C6BC0'} 18%, var(--bg-secondary)), var(--tag-bg))`,
-                    }}
-                  />
-                  <div className="achievement-date-tag">{item.date}</div>
-                </div>
+                <ImageGallery
+                  images={item.images || []}
+                  type={item.type}
+                  galleryDetails={item.galleryDetails}
+                  defaultAspectRatio={item.aspectRatio}
+                  defaultMaxWidth={item.maxWidth}
+                  onOpenModal={() => setSelectedAchievement(item)}
+                  previewStyle={{
+                    background: `linear-gradient(135deg, color-mix(in srgb, ${TYPE_COLORS[item.type] ?? '#5C6BC0'} 18%, var(--bg-secondary)), var(--card-bg))`,
+                  }}
+                />
 
                 {/* Content box */}
                 <div className="achievement-content-box">
-                  <div className="achievement-meta-header">
-                    <span
-                      className="achievement-type-label"
-                      style={{ background: `color-mix(in srgb, ${TYPE_COLORS[item.type] ?? '#5C6BC0'} 20%, transparent)`, color: TYPE_COLORS[item.type] ?? 'var(--accent)' }}
-                    >
-                      {item.type.toUpperCase()}
-                    </span>
+                  <div className="achievement-header-meta">
                     {item.source && (
                       <span className="achievement-source-badge">
-                        {getSourceIcon(item.source)}
+                        {getSourceIcon(item)}
                         {item.source}
                       </span>
                     )}
+                    <span className="achievement-date-pill">{item.date}</span>
                   </div>
 
-                  <h3 className="achievement-title">{item.title}</h3>
+                  <h3 className="achievement-title" onClick={() => setSelectedAchievement(item)} style={{ cursor: 'pointer' }}>{item.title}</h3>
                   <p className="achievement-desc">{item.description}</p>
 
                   <div className="achievement-footer">
@@ -199,11 +238,11 @@ export default function AchievementsPage() {
                         rel="noopener noreferrer"
                         className="view-work-btn"
                       >
-                        {getLinkLabel(item.source)} <ExternalLink size={15} />
+                        {getLinkLabel(item)} <ExternalLink size={18} style={{ marginLeft: '10px' }} />
                       </a>
                     ) : (
                       <span className="view-work-btn view-work-btn--muted">
-                        <Star size={15} /> Personal Milestone
+                        <Star size={18} style={{ marginRight: '10px' }} /> Personal Milestone
                       </span>
                     )}
                   </div>
@@ -213,6 +252,101 @@ export default function AchievementsPage() {
           </div>
         </div>
       </section>
+
+      {/* Cinematic Modal Overlay */}
+      {selectedAchievement && (
+        <AchievementModal
+          achievement={selectedAchievement}
+          onClose={() => setSelectedAchievement(null)}
+        />
+      )}
     </main>
+  );
+}
+
+function AchievementModal({ achievement, onClose }: { achievement: any, onClose: () => void }) {
+  const [index, setIndex] = useState(0);
+  const images = achievement.images || [];
+
+  const next = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  return (
+    <div className="achievement-modal-overlay">
+      <button className="modal-close-btn" onClick={onClose}>
+        <X size={24} />
+      </button>
+
+      <div className="modal-main-viewer">
+        {images.length > 1 && (
+          <button className="modal-nav-arrow prev" onClick={prev}>
+            <ChevronLeft size={32} />
+          </button>
+        )}
+
+        <div className="modal-image-container">
+          <img
+            key={index}
+            src={images[index]}
+            alt={achievement.title}
+            className="modal-image"
+          />
+
+          {images.length > 1 && (
+            <div className="dots-container">
+              {images.map((_: any, i: number) => (
+                <span
+                  key={i}
+                  className={`nav-dot ${i === index ? 'active' : ''}`}
+                  onClick={() => setIndex(i)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {images.length > 1 && (
+          <button className="modal-nav-arrow next" onClick={next}>
+            <ChevronRight size={32} />
+          </button>
+        )}
+      </div>
+
+      <div className="modal-info-panel">
+        <div className="modal-info-left">
+          <div className="modal-meta-row">
+            {achievement.source && (
+              <div className="achievement-source-badge">
+                {getSourceIcon(achievement)}
+                {achievement.source}
+              </div>
+            )}
+            <div className="achievement-date-pill">{achievement.date}</div>
+          </div>
+
+          <h2 className="modal-title">{achievement.title}</h2>
+          <p className="modal-desc">{achievement.description}</p>
+        </div>
+
+        <div className="modal-button-wrap">
+          {achievement.link ? (
+            <a href={achievement.link} target="_blank" rel="noopener noreferrer" className="modal-action-btn">
+              {getLinkLabel(achievement)}
+            </a>
+          ) : (
+            <div className="modal-action-btn" style={{ opacity: 0.5, cursor: 'default' }}>
+              Personal Milestone
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

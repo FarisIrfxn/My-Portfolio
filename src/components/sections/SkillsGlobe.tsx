@@ -34,7 +34,8 @@ export default function SkillsGlobe() {
       color: 0x444444,
       wireframe: true,
       transparent: true,
-      opacity: 0.1
+      opacity: 0.1,
+      depthWrite: false // Prevents the globe wireframe from blocking the skills behind it
     });
     const globe = new THREE.Mesh(geometry, material);
     scene.add(globe);
@@ -99,7 +100,11 @@ export default function SkillsGlobe() {
       
       const texture = createSkillTexture(skill);
       if (texture) {
-        const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+        const spriteMaterial = new THREE.SpriteMaterial({ 
+          map: texture,
+          transparent: true,
+          alphaTest: 0.05, // Discards pixels with low alpha to prevent "boxes"
+        });
         const sprite = new THREE.Sprite(spriteMaterial);
         sprite.position.copy(pos);
         sprite.scale.set(30, 4, 1);
@@ -140,12 +145,32 @@ export default function SkillsGlobe() {
     window.addEventListener('mouseup', onMouseUp);
 
     // Animation loop
+    const tempWorldPos = new THREE.Vector3();
     let animationFrameId: number;
     const animate = () => {
       if (!isDragging) {
         skillGroup.rotation.y += 0.002;
         globe.rotation.y += 0.002;
       }
+
+      // Dynamic opacity based on distance from camera
+      skillGroup.children.forEach((child) => {
+        if (child instanceof THREE.Sprite) {
+          child.getWorldPosition(tempWorldPos);
+          
+          // normalized depth from front (radius) to back (-radius)
+          const normalizedZ = tempWorldPos.z / radius; 
+          
+          // Fade things in the back: front (1.0) -> back (0.2)
+          const opacity = THREE.MathUtils.mapLinear(normalizedZ, -1, 1, 0.2, 1.0);
+          child.material.opacity = opacity;
+          
+          // Scale slightly smaller in the back (0.8x -> 1.1x)
+          const scaleFactor = THREE.MathUtils.mapLinear(normalizedZ, -1, 1, 0.8, 1.1);
+          child.scale.set(30 * scaleFactor, 4 * scaleFactor, 1);
+        }
+      });
+
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
     };
