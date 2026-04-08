@@ -1,6 +1,6 @@
 import { Project } from "../types";
 
-const R2_URL = "https://pub-bf3dd0628431475b81d6b32415920dc5.r2.dev/Projects";
+const R2_URL = `${process.env.NEXT_PUBLIC_R2_BASE_URL}/Projects`;
 
 export const PROJECTS: Project[] = [
   {

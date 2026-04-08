@@ -6,9 +6,12 @@ import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import ChatWidget from '@/components/layout/ChatWidget';
 
 export const metadata: Metadata = {
-  title: 'Faris | AI Generalist & Tech Lead',
+  title: 'Faris Portfolio',
   description:
     'Portfolio of Faris - AI Generalist focusing on automation, LLM integration, and full-stack AI solutions.',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({

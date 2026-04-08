@@ -4,8 +4,14 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
+    const apiUrl = process.env.FLOWISE_API_URL;
+    
+    if (!apiUrl) {
+      return NextResponse.json({ error: "Missing API URL configuring" }, { status: 500 });
+    }
+
     const response = await fetch(
-      "https://cloud.flowiseai.com/api/v1/prediction/75fc0b8b-e8de-4272-8f95-94b6c7a6bfea",
+      apiUrl,
       {
         method: "POST",
         headers: {

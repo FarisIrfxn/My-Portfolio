@@ -1,5 +1,5 @@
 import { Achievement } from "../types";
-const R2_URL = "https://pub-bf3dd0628431475b81d6b32415920dc5.r2.dev/Achievements";
+const R2_URL = `${process.env.NEXT_PUBLIC_R2_BASE_URL}/Achievements`;
 export const ACHIEVEMENTS: Achievement[] = [
   {
     title: "Aurat Intelligence Went Viral",

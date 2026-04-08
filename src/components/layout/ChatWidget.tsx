@@ -3,14 +3,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { Message } from '@/types';
 import { MessageSquare, X, RotateCcw, Send } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 const INITIAL_MESSAGES: Message[] = [
-  { role: 'assistant', content: 'Hi! I\'m Faris\'s AI assistant. You can ask me about his journey from production automation to AI, his full-stack products, or his technical expertise. What would you like to know?' }
+  { role: 'assistant', content: 'Hi, I\'m Faris\'s AI assistant. How can I help you?' }
 ];
 
 async function query(data: { question: string; chatId?: string }) {
   const response = await fetch(
-    "/api/chat", 
+    "/api/chat",
     {
       method: "POST",
       headers: {
@@ -72,9 +73,9 @@ export default function ChatWidget() {
 
     try {
       const response = await query({ question: text, chatId });
-      
+
       let assistantContent = "";
-      
+
       if (response && response.text) {
         assistantContent = response.text;
       } else if (response && response.json) {
@@ -89,8 +90,8 @@ export default function ChatWidget() {
         assistantContent = "Sorry, I couldn't process your request. Please try again.";
       }
 
-      const assistantMessage: Message = { 
-        role: 'assistant', 
+      const assistantMessage: Message = {
+        role: 'assistant',
         content: assistantContent
       };
       setMessages([...newMessages, assistantMessage]);
@@ -115,7 +116,7 @@ export default function ChatWidget() {
   return (
     <>
       {/* Floating Toggle Button */}
-      <button 
+      <button
         className={`chat-widget-toggle ${isOpen ? 'active' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle AI Assistant"
@@ -130,8 +131,8 @@ export default function ChatWidget() {
             <span className="status-dot"></span>
             Faris AI Assistant
           </div>
-          <button 
-            className="chat-clear" 
+          <button
+            className="chat-clear"
             onClick={handleClearChat}
             title="Clear Chat"
           >
@@ -139,11 +140,13 @@ export default function ChatWidget() {
             <span>Clear</span>
           </button>
         </div>
-        
+
         <div className="chat-messages">
           {messages.map((msg, index) => (
             <div key={index} className={`message-bubble ${msg.role}`}>
-              <div className="message-content">{msg.content}</div>
+              <div className="message-content">
+                <ReactMarkdown>{msg.content}</ReactMarkdown>
+              </div>
             </div>
           ))}
           {isTyping && (
