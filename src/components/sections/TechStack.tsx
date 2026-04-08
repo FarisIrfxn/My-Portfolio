@@ -10,7 +10,9 @@ export default function TechStack() {
             <h4>{category.name}</h4>
             <div className="stack-tags">
               {category.items.map((item, i) => (
-                <span key={i}>{item}</span>
+                <span key={i} className="stack-tag">
+                  {item.name}
+                </span>
               ))}
             </div>
           </div>
