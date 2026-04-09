@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     'Portfolio of Faris - AI Generalist focusing on automation, LLM integration, and full-stack AI solutions.',
   icons: {
     icon: '/favicon.png',
+    apple: '/mobile.png',
   },
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
