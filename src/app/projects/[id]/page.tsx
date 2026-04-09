@@ -219,7 +219,7 @@ export default function ProjectDetail() {
 
         {/* System Architecture Section (Flow Chart Style) */}
         {project.workflow && (
-            <div className="detail-workflow-section" style={{ marginTop: '80px', paddingTop: '60px', borderTop: '1px solid var(--border-color)' }}>
+            <div className="detail-workflow-section detail-section-responsive" style={{ borderTop: '1px solid var(--border-color)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px', justifyContent: 'center' }}>
                     <Workflow size={28} style={{ color: 'var(--accent-color)' }} />
                     <h2 style={{ fontSize: '1.75rem', fontWeight: '950', letterSpacing: '-1px' }}>System Architecture</h2>
@@ -275,7 +275,7 @@ export default function ProjectDetail() {
 
         {/* Challenges & Lessons Learned Section */}
         {project.challenges && project.challenges.length > 0 && (
-          <div className="detail-challenges-section" style={{ marginTop: '80px', paddingTop: '60px', borderTop: '1px solid var(--border-color)' }}>
+          <div className="detail-challenges-section detail-section-responsive" style={{ borderTop: '1px solid var(--border-color)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px' }}>
               <AlertTriangle size={28} style={{ color: '#F59E0B' }} />
               <h2 style={{ fontSize: '1.75rem', fontWeight: '950', letterSpacing: '-1px' }}>Challenges & Solutions</h2>
@@ -316,7 +316,7 @@ export default function ProjectDetail() {
         )}
 
         {/* Project Gallery & Showcase Section */}
-        <div className="detail-showcase-section" style={{ marginTop: '60px', paddingTop: '40px', borderTop: '1px solid var(--border-color)' }}>
+        <div className="detail-showcase-section detail-section-responsive" style={{ borderTop: '1px solid var(--border-color)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px', justifyContent: 'center' }}>
             <ImageIcon size={28} style={{ color: 'var(--accent-color)' }} />
             <h2 style={{ fontSize: '1.75rem', fontWeight: '950', letterSpacing: '-1px' }}>Project Gallery</h2>
@@ -610,7 +610,7 @@ export default function ProjectDetail() {
         </div>
 
         {/* Floating Vertical Quick Navigation (Jump-to Menu) */}
-        <div className="floating-jump-menu" style={{
+        <div className="floating-jump-menu hide-on-mobile" style={{
             position: 'fixed',
             right: '25px',
             top: '50%',
@@ -660,11 +660,12 @@ export default function ProjectDetail() {
       {/* Image Lightbox Modal */}
       {selectedIndex !== null && selectedImage && (
         <div
+          className="lightbox-overlay"
           onClick={() => setSelectedIndex(null)}
           style={{
             position: 'fixed',
             top: 0, left: 0, right: 0, bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.85)', // Nampak sikit overlay belakang
+            backgroundColor: 'rgba(0,0,0,0.85)',
             backdropFilter: 'blur(10px)',
             zIndex: 9999,
             display: 'flex',
@@ -675,6 +676,7 @@ export default function ProjectDetail() {
           }}
         >
           <button
+            className="modal-close-btn-v2"
             onClick={(e) => { e.stopPropagation(); setSelectedIndex(null); }}
             style={{
               position: 'absolute',
@@ -692,10 +694,11 @@ export default function ProjectDetail() {
             <X size={22} />
           </button>
           <div
+            className="lightbox-content"
             onClick={(e) => e.stopPropagation()}
             style={{ 
                 maxHeight: '90vh', 
-                maxWidth: '900px', // Limit width for text readability
+                maxWidth: '900px', 
                 width: '100%',
                 position: 'relative',
                 display: 'flex',

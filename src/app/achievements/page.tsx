@@ -188,7 +188,8 @@ export default function AchievementsPage() {
 
 
           {/* Filter Tabs */}
-          <div className="category-filters">
+          <div className="category-filters-wrapper">
+            <div className="category-filters">
             {CATEGORIES.map(cat => (
               <button
                 key={cat.key}
@@ -199,6 +200,7 @@ export default function AchievementsPage() {
               </button>
             ))}
           </div>
+        </div>
 
           <div className="achievements-mega-grid">
             {filteredAchievements.map((item, index) => (

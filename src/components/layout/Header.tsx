@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
 import ResumeModal from '../ui/ResumeModal';
+import { Menu, X } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isHome = pathname === '/';
 
   useEffect(() => {
@@ -35,6 +37,14 @@ export default function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isMenuOpen]);
+
   const closeResume = () => {
     setIsResumeOpen(false);
     if (window.location.hash === '#resume') {
@@ -42,34 +52,40 @@ export default function Header() {
     }
   };
 
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
+
   const getLink = (hash: string) => (isHome ? hash : `/${hash}`);
 
   return (
     <>
-      <header className={`header-floating ${scrolled ? 'scrolled' : ''}`}>
+      <header className={`header-floating ${scrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
         {/* Left: Resume */}
         <div className="header-island island-left">
           <a href="#resume" className="nav-resume-btn">
-            <img src="/favicon.png" alt="Faris" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
-            <span>Resume</span>
+            <img src="/favicon.png" alt="Faris" className="nav-resume-icon" />
+            <span className="hide-mobile">Resume</span>
           </a>
         </div>
 
-        {/* Center: Navigation */}
-        <nav className="header-island island-center">
+        {/* Center: Navigation (Desktop) / Full Screen Menu (Mobile) */}
+        <nav className={`header-island island-center ${isMenuOpen ? 'active' : ''}`}>
           <ul className="nav-links">
-            <li><Link href="/">Home</Link></li>
-            <li><Link href={getLink('#about')}>About</Link></li>
-            <li><Link href="/projects">Projects</Link></li>
-            <li><Link href="/skills">Skills</Link></li>
-            <li><Link href="/achievements">Achievement</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href="/" onClick={closeMenu}>Home</Link></li>
+            <li><Link href={getLink('#about')} onClick={closeMenu}>About</Link></li>
+            <li><Link href="/projects" onClick={closeMenu}>Projects</Link></li>
+            <li><Link href="/skills" onClick={closeMenu}>Skills</Link></li>
+            <li><Link href="/achievements" onClick={closeMenu}>Achievement</Link></li>
+            <li><Link href="/contact" onClick={closeMenu}>Contact</Link></li>
           </ul>
         </nav>
 
-        {/* Right: Theme Toggle */}
+        {/* Right: Theme Toggle & Mobile Menu Btn */}
         <div className="header-island island-right">
           <ThemeToggle />
+          <button className="mobile-menu-btn" onClick={toggleMenu} aria-label="Toggle Menu">
+            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </header>
 

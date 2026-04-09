@@ -115,6 +115,12 @@ export default function ChatWidget() {
 
   return (
     <>
+      {/* Backdrop for Mobile */}
+      <div 
+        className={`chat-widget-backdrop ${isOpen ? 'active' : ''}`} 
+        onClick={() => setIsOpen(false)}
+      />
+
       {/* Floating Toggle Button */}
       <button
         className={`chat-widget-toggle ${isOpen ? 'active' : ''}`}

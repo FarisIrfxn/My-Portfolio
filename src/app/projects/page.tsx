@@ -27,16 +27,18 @@ export default function ProjectsPage() {
           </div>
 
           {/* Filter Tabs */}
-          <div className="category-filters">
-             {CATEGORIES.map(cat => (
-               <button 
-                key={cat} 
-                className={`filter-chip ${activeCategory === cat ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat)}
-               >
-                 {cat}
-               </button>
-             ))}
+          <div className="category-filters-wrapper">
+            <div className="category-filters">
+               {CATEGORIES.map(cat => (
+                 <button 
+                  key={cat} 
+                  className={`filter-chip ${activeCategory === cat ? 'active' : ''}`}
+                  onClick={() => setActiveCategory(cat)}
+                 >
+                   {cat}
+                 </button>
+               ))}
+            </div>
           </div>
 
           {/* Stats Bar */}

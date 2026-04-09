@@ -68,60 +68,62 @@ export const PROJECTS: Project[] = [
 
   },
   {
-    title: "DuriooAI",
-    tag: "WEB PLATFORM",
-    description: "An internal AI tools hub built for the Durioo team, centralizing multiple Automation and AI-powered utilities into a single platform. The system allows team members to directly run AI workflows such as video and audio processing without switching between multiple external tools.",
-    tech: ["REACT", "FASTAPI", "MONGODB"],
-    impact: "Reduced workflow friction by consolidating multiple Automation and AI tools into a single interface, enabling team members to execute tasks faster without context switching across platforms.",
+    title: "Compilation Generator",
+    tag: "VIDEO TOOL",
+    description: "A web tool that allows users to select multiple videos and automatically merge them into a single video using FFmpeg. The system streamlines the compilation process, eliminating the need for manual download, import, and rendering in video editing software.",
+    tech: ["REACT", "FASTAPI", "FFMPEG"],
+    impact: "Saved significant production time by automating video compilation, allowing the team to quickly prepare videos for publishing or sharing without manual editing steps.",
     featured: true,
-    color: "#E91E63",
-    category: "Web Development",
-    id: "DuriooAI",
-    year: "2025",
-    thumbnail: `${R2_URL}/DuriooAI/thumbnail.png`,
+    color: "#FB8C00",
+    category: "Automation",
+    id: "CompilationGenerator",
+    year: "2024",
+    thumbnail: `${R2_URL}/CompilationGen/thumbnail.png`,
     mockups: {
-      desktop: `${R2_URL}/DuriooAI/desktop.png`
+      desktop: `${R2_URL}/CompilationGen/image1.png`
     },
     workflow: [
       {
-        step: "Frontend Interface (React)",
-        description: "A centralized dashboard that organizes multiple AI tools into a single accessible interface for internal team usage."
+        step: "Video Selection (Durioo API)",
+        description: "Users select the videos they want to compile from the platform."
       },
       {
-        step: "AI Tool Execution",
-        description: "Users can directly run AI-powered utilities such as video analysis, compilation generation, and audio processing within the platform."
+        step: "Automated Merging (FFmpeg)",
+        description: "The selected videos are sent to the backend, where FFmpeg merges them into a single output file without manual intervention."
       },
       {
-        step: "Backend Processing (FastAPI)",
-        description: "Handles API requests, manages AI processing workflows, and connects frontend interactions to AI services."
+        step: "Output Generation",
+        description: "The compiled video is returned to the user, ready for sharing or further processing."
       }
     ],
     challenges: [
       {
-        challenge: "Learning to Manage Multiple Tools in One Platform",
-        solution: "Built the project while figuring out how to structure multiple AI tools together, gaining hands-on experience in organizing frontend and backend workflows."
-      },
-      {
-        challenge: "Understanding Web Development as a Beginner",
-        solution: "Learned React and FastAPI on the go, implementing a functional system that allowed internal team members to run AI workflows in a unified interface."
+        challenge: "Handling Intro/Outro Segments",
+        solution: "The platform requires users to specify which videos have intro/outro segments to trim; otherwise, the system merges videos as-is, keeping the original intro/outro."
       }
     ],
     status: "Active",
-    gallery: [`${R2_URL}/DuriooAI/image1.png`, `${R2_URL}/DuriooAI/image2.png`],
+    gallery: [`${R2_URL}/CompilationGen/image1.png`, `${R2_URL}/CompilationGen/image2.png`, `${R2_URL}/CompilationGen/image3.png`],
     galleryDetails: [
       {
         title: "Main Page",
-        description: "Onboarding and welcome page introducing the Durioo AI website.",
-        flex: "1 1 450px", // Biar dia kembang ikut ruang
-        maxWidth: "520px",
+        description: "The main page of the compilation generator.",
+        maxWidth: "520px", // Besarkan supaya muat 2 saja sebaris
+        flex: "1 1 450px",
         aspectRatio: "16/9"
       },
       {
-        title: "Dashboard Page",
-        description: "The centralized hub organizing all available automation and AI tools for the team.",
-        flex: "1 1 450px",
+        title: "Merging Process",
+        description: "Selecting and ordering multiple video clips for seamless merging.",
         maxWidth: "520px",
+        flex: "1 1 450px",
         aspectRatio: "16/9"
+      },
+      {
+        title: "Final Output",
+        description: "Ready-to-use compiled video output after successful merging.",
+        maxWidth: "320px",
+        aspectRatio: "9/16"
       }
     ]
   },
@@ -198,6 +200,61 @@ export const PROJECTS: Project[] = [
         description: "Users can download and share the generated images.",
         maxWidth: "310px",
         aspectRatio: "9/16"
+      }
+    ]
+  },
+  {
+    title: "DuriooAI",
+    tag: "WEB PLATFORM",
+    description: "An internal AI tools hub built for the Durioo team, centralizing multiple Automation and AI-powered utilities into a single platform. The system allows team members to directly run AI workflows such as video and audio processing without switching between multiple external tools.",
+    tech: ["REACT", "FASTAPI", "MONGODB"],
+    impact: "Reduced workflow friction by consolidating multiple Automation and AI tools into a single interface, enabling team members to execute tasks faster without context switching across platforms.",
+    featured: false,
+    color: "#E91E63",
+    category: "Web Development",
+    id: "DuriooAI",
+    year: "2025",
+    thumbnail: `${R2_URL}/DuriooAI/thumbnail.png`,
+    workflow: [
+      {
+        step: "Frontend Interface (React)",
+        description: "A centralized dashboard that organizes multiple AI tools into a single accessible interface for internal team usage."
+      },
+      {
+        step: "AI Tool Execution",
+        description: "Users can directly run AI-powered utilities such as video analysis, compilation generation, and audio processing within the platform."
+      },
+      {
+        step: "Backend Processing (FastAPI)",
+        description: "Handles API requests, manages AI processing workflows, and connects frontend interactions to AI services."
+      }
+    ],
+    challenges: [
+      {
+        challenge: "Learning to Manage Multiple Tools in One Platform",
+        solution: "Built the project while figuring out how to structure multiple AI tools together, gaining hands-on experience in organizing frontend and backend workflows."
+      },
+      {
+        challenge: "Understanding Web Development as a Beginner",
+        solution: "Learned React and FastAPI on the go, implementing a functional system that allowed internal team members to run AI workflows in a unified interface."
+      }
+    ],
+    status: "Active",
+    gallery: [`${R2_URL}/DuriooAI/image1.png`, `${R2_URL}/DuriooAI/image2.png`],
+    galleryDetails: [
+      {
+        title: "Main Page",
+        description: "Onboarding and welcome page introducing the Durioo AI website.",
+        flex: "1 1 450px", // Biar dia kembang ikut ruang
+        maxWidth: "520px",
+        aspectRatio: "16/9"
+      },
+      {
+        title: "Dashboard Page",
+        description: "The centralized hub organizing all available automation and AI tools for the team.",
+        flex: "1 1 450px",
+        maxWidth: "520px",
+        aspectRatio: "16/9"
       }
     ]
   },
@@ -686,64 +743,6 @@ export const PROJECTS: Project[] = [
       {
         title: "Multi-Language",
         description: "Preview of the subtitles in multiple languages.",
-        maxWidth: "520px",
-        flex: "1 1 450px",
-        aspectRatio: "16/9"
-      }
-    ]
-  },
-  {
-    title: "Compilation Generator",
-    tag: "VIDEO TOOL",
-    description: "A web tool that allows users to select multiple videos and automatically merge them into a single video using FFmpeg. The system streamlines the compilation process, eliminating the need for manual download, import, and rendering in video editing software.",
-    tech: ["REACT", "FASTAPI", "FFMPEG"],
-    impact: "Saved significant production time by automating video compilation, allowing the team to quickly prepare videos for publishing or sharing without manual editing steps.",
-    featured: false,
-    color: "#FB8C00",
-    category: "Automation",
-    id: "CompilationGenerator",
-    year: "2024",
-    thumbnail: `${R2_URL}/CompilationGen/thumbnail.png`,
-    workflow: [
-      {
-        step: "Video Selection (Durioo API)",
-        description: "Users select the videos they want to compile from the platform."
-      },
-      {
-        step: "Automated Merging (FFmpeg)",
-        description: "The selected videos are sent to the backend, where FFmpeg merges them into a single output file without manual intervention."
-      },
-      {
-        step: "Output Generation",
-        description: "The compiled video is returned to the user, ready for sharing or further processing."
-      }
-    ],
-    challenges: [
-      {
-        challenge: "Handling Intro/Outro Segments",
-        solution: "The platform requires users to specify which videos have intro/outro segments to trim; otherwise, the system merges videos as-is, keeping the original intro/outro."
-      }
-    ],
-    status: "Active",
-    gallery: [`${R2_URL}/CompilationGen/image1.png`, `${R2_URL}/CompilationGen/image2.png`, `${R2_URL}/CompilationGen/image3.png`],
-    galleryDetails: [
-      {
-        title: "Merging Process",
-        description: "Selecting and ordering multiple video clips for seamless merging.",
-        maxWidth: "520px", // Besarkan supaya muat 2 saja sebaris
-        flex: "1 1 450px",
-        aspectRatio: "16/9"
-      },
-      {
-        title: "Thumbnail Extraction",
-        description: "Extracting thumbnails from the video.",
-        maxWidth: "520px",
-        flex: "1 1 450px",
-        aspectRatio: "16/9"
-      },
-      {
-        title: "Final Output",
-        description: "Ready-to-use compiled video output after successful merging.",
         maxWidth: "520px",
         flex: "1 1 450px",
         aspectRatio: "16/9"
