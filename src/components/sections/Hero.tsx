@@ -13,7 +13,7 @@ export default function Hero() {
             Bridging the gap between complex production pipelines and production-ready AI systems.
           </p>
           <div className="hero-actions">
-            <Button href={`${process.env.NEXT_PUBLIC_R2_BASE_URL}/Resume/resume.jpg`} download="Faris_Resume.jpg">Download Resume</Button>
+            <Button href={`${process.env.NEXT_PUBLIC_R2_BASE_URL}/Resume/Resume_ATS.pdf`} download="Faris_Resume_ATS.pdf">Download Resume</Button>
           </div>
         </div>
         <div className="hero-visual-wrapper">
