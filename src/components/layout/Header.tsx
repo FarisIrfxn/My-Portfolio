@@ -92,7 +92,11 @@ export default function Header() {
       <ResumeModal 
         isOpen={isResumeOpen} 
         onClose={closeResume} 
-        previewUrl={`${process.env.NEXT_PUBLIC_R2_BASE_URL}/Resume/Resume_ATS.pdf`} 
+        previewUrls={[
+          `${process.env.NEXT_PUBLIC_R2_BASE_URL}/Resume/Resume_ATS-1.png`,
+          `${process.env.NEXT_PUBLIC_R2_BASE_URL}/Resume/Resume_ATS-2.png`,
+          `${process.env.NEXT_PUBLIC_R2_BASE_URL}/Resume/Resume_ATS-3.png`
+        ]} 
         downloadUrl={`${process.env.NEXT_PUBLIC_R2_BASE_URL}/Resume/Resume_ATS.pdf`}
       />
     </>

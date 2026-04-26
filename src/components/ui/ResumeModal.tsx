@@ -6,11 +6,11 @@ import { X, Download } from 'lucide-react';
 interface ResumeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  previewUrl: string;
+  previewUrls: string[];
   downloadUrl: string;
 }
 
-export default function ResumeModal({ isOpen, onClose, previewUrl, downloadUrl }: ResumeModalProps) {
+export default function ResumeModal({ isOpen, onClose, previewUrls, downloadUrl }: ResumeModalProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -22,18 +22,39 @@ export default function ResumeModal({ isOpen, onClose, previewUrl, downloadUrl }
     };
   }, [isOpen]);
 
+  const handleDownload = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      const response = await fetch(downloadUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = "Faris_Resume_ATS.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+      window.open(downloadUrl, '_blank');
+    }
+  };
+
   if (!isOpen) return null;
 
-  const isPDF = previewUrl.toLowerCase().endsWith('.pdf');
-
   return (
-    <div className="resume-modal-overlay" onClick={onClose}>
+    <div className="resume-modal-overlay">
+      {/* Background layer for closing */}
+      <div className="resume-modal-backdrop" onClick={onClose} />
+      
+      {/* Fixed Controls */}
       <div className="resume-modal-controls">
         <a 
           href={downloadUrl} 
-          download="Faris_Resume_ATS.pdf"
           className="resume-modal-download"
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleDownload}
           aria-label="Download"
         >
           <Download size={24} />
@@ -43,16 +64,20 @@ export default function ResumeModal({ isOpen, onClose, previewUrl, downloadUrl }
         </button>
       </div>
       
-      <div className="resume-image-container" onClick={(e) => e.stopPropagation()}>
-        {isPDF ? (
-          <iframe 
-            src={`${previewUrl}#toolbar=0&view=FitH`} 
-            className="resume-pdf-viewer"
-            title="Resume PDF"
-          />
-        ) : (
-          <img src={previewUrl} alt="Resume" className="resume-image" />
-        )}
+      {/* Scrollable Content */}
+      <div className="resume-modal-scroll-area" onClick={onClose}>
+        <div className="resume-image-container" onClick={(e) => e.stopPropagation()}>
+          <div className="resume-pages-list">
+            {previewUrls.map((url, index) => (
+              <img 
+                key={index}
+                src={url} 
+                alt={`Resume Page ${index + 1}`} 
+                className="resume-image" 
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
